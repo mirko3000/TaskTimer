@@ -1,0 +1,412 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AC51A24217104160005F65E8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC51A24117104160005F65E8 /* Cocoa.framework */; };
+		AC51A24C17104160005F65E8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC51A24A17104160005F65E8 /* InfoPlist.strings */; };
+		AC51A24E17104160005F65E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AC51A24D17104160005F65E8 /* main.m */; };
+		AC51A25217104160005F65E8 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AC51A25017104160005F65E8 /* Credits.rtf */; };
+		AC51A25517104160005F65E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC51A25417104160005F65E8 /* AppDelegate.m */; };
+		AC51A25817104160005F65E8 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC51A25617104160005F65E8 /* MainMenu.xib */; };
+		AC9ABAAE171ACFC5005C7E63 /* TimeSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9ABAAD171ACFC5005C7E63 /* TimeSheetController.m */; };
+		ACC365B81711970A00FBB415 /* TaskTimer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ACC365B61711970A00FBB415 /* TaskTimer.xcdatamodeld */; };
+		ACC365E71711B70900FBB415 /* TimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC365E61711B70900FBB415 /* TimeIntervalFormatter.m */; };
+		ACC365F31711E7E600FBB415 /* Pause.icns in Resources */ = {isa = PBXBuildFile; fileRef = ACC365EF1711E7E600FBB415 /* Pause.icns */; };
+		ACC365F41711E7E600FBB415 /* Pause.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC365F01711E7E600FBB415 /* Pause.png */; };
+		ACC365F51711E7E600FBB415 /* Play.icns in Resources */ = {isa = PBXBuildFile; fileRef = ACC365F11711E7E600FBB415 /* Play.icns */; };
+		ACC365F61711E7E600FBB415 /* Play.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC365F21711E7E600FBB415 /* Play.png */; };
+		ACC365F91711E93200FBB415 /* Scheduled Tasks.icns in Resources */ = {isa = PBXBuildFile; fileRef = ACC365F71711E93200FBB415 /* Scheduled Tasks.icns */; };
+		ACC365FA1711E93200FBB415 /* Scheduled Tasks.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC365F81711E93200FBB415 /* Scheduled Tasks.png */; };
+		ACC365FC1711E95C00FBB415 /* Scheduled Tasks.icns in Resources */ = {isa = PBXBuildFile; fileRef = ACC365FB1711E95C00FBB415 /* Scheduled Tasks.icns */; };
+		ACCD9739171C922C0013034D /* ScrollingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCD9738171C922C0013034D /* ScrollingTextView.m */; };
+		ACCD973C171CA4CF0013034D /* FBScrollingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCD973B171CA4CF0013034D /* FBScrollingTextView.m */; };
+		ACEC381E1718C43400E356A0 /* TimesheetWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACEC381D1718C43400E356A0 /* TimesheetWindow.xib */; };
+		ACFBAF5C1713610E00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns in Resources */ = {isa = PBXBuildFile; fileRef = ACFBAF591713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns */; };
+		ACFBAF5D1713610E00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns in Resources */ = {isa = PBXBuildFile; fileRef = ACFBAF5A1713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns */; };
+		ACFBAF5E1713610E00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-start.icns in Resources */ = {isa = PBXBuildFile; fileRef = ACFBAF5B1713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-start.icns */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AC51A23E17104160005F65E8 /* TaskTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC51A24117104160005F65E8 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		AC51A24417104160005F65E8 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		AC51A24517104160005F65E8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		AC51A24617104160005F65E8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		AC51A24917104160005F65E8 /* TaskTimer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TaskTimer-Info.plist"; sourceTree = "<group>"; };
+		AC51A24B17104160005F65E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AC51A24D17104160005F65E8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AC51A24F17104160005F65E8 /* TaskTimer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TaskTimer-Prefix.pch"; sourceTree = "<group>"; };
+		AC51A25117104160005F65E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		AC51A25317104160005F65E8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AC51A25417104160005F65E8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		AC51A25717104160005F65E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		AC9ABAAC171ACFC5005C7E63 /* TimeSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeSheetController.h; sourceTree = "<group>"; };
+		AC9ABAAD171ACFC5005C7E63 /* TimeSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeSheetController.m; sourceTree = "<group>"; };
+		ACC365B71711970A00FBB415 /* TaskTimer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TaskTimer.xcdatamodel; sourceTree = "<group>"; };
+		ACC365E51711B70900FBB415 /* TimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeIntervalFormatter.h; sourceTree = "<group>"; };
+		ACC365E61711B70900FBB415 /* TimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeIntervalFormatter.m; sourceTree = "<group>"; };
+		ACC365EF1711E7E600FBB415 /* Pause.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Pause.icns; sourceTree = "<group>"; };
+		ACC365F01711E7E600FBB415 /* Pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pause.png; sourceTree = "<group>"; };
+		ACC365F11711E7E600FBB415 /* Play.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Play.icns; sourceTree = "<group>"; };
+		ACC365F21711E7E600FBB415 /* Play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Play.png; sourceTree = "<group>"; };
+		ACC365F71711E93200FBB415 /* Scheduled Tasks.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "Scheduled Tasks.icns"; sourceTree = "<group>"; };
+		ACC365F81711E93200FBB415 /* Scheduled Tasks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Scheduled Tasks.png"; sourceTree = "<group>"; };
+		ACC365FB1711E95C00FBB415 /* Scheduled Tasks.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "Scheduled Tasks.icns"; sourceTree = "<group>"; };
+		ACCD9737171C922C0013034D /* ScrollingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollingTextView.h; sourceTree = "<group>"; };
+		ACCD9738171C922C0013034D /* ScrollingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollingTextView.m; sourceTree = "<group>"; };
+		ACCD973A171CA4CF0013034D /* FBScrollingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBScrollingTextView.h; sourceTree = "<group>"; };
+		ACCD973B171CA4CF0013034D /* FBScrollingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBScrollingTextView.m; sourceTree = "<group>"; };
+		ACEC381D1718C43400E356A0 /* TimesheetWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimesheetWindow.xib; sourceTree = "<group>"; };
+		ACFBAF591713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns"; path = "../Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns"; sourceTree = "<group>"; };
+		ACFBAF5A1713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns"; path = "../Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns"; sourceTree = "<group>"; };
+		ACFBAF5B1713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-start.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "Oxygen-Icons.org-Oxygen-Actions-media-playback-start.icns"; path = "../Oxygen-Icons.org-Oxygen-Actions-media-playback-start.icns"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AC51A23B17104160005F65E8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC51A24217104160005F65E8 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AC51A23517104160005F65E8 = {
+			isa = PBXGroup;
+			children = (
+				ACC365FB1711E95C00FBB415 /* Scheduled Tasks.icns */,
+				AC51A24717104160005F65E8 /* TaskTimer */,
+				AC51A24017104160005F65E8 /* Frameworks */,
+				AC51A23F17104160005F65E8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AC51A23F17104160005F65E8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AC51A23E17104160005F65E8 /* TaskTimer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AC51A24017104160005F65E8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AC51A24117104160005F65E8 /* Cocoa.framework */,
+				AC51A24317104160005F65E8 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AC51A24317104160005F65E8 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AC51A24417104160005F65E8 /* AppKit.framework */,
+				AC51A24517104160005F65E8 /* CoreData.framework */,
+				AC51A24617104160005F65E8 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		AC51A24717104160005F65E8 /* TaskTimer */ = {
+			isa = PBXGroup;
+			children = (
+				ACCD973A171CA4CF0013034D /* FBScrollingTextView.h */,
+				ACCD973B171CA4CF0013034D /* FBScrollingTextView.m */,
+				ACC365EE1711E7E600FBB415 /* resources */,
+				AC51A25317104160005F65E8 /* AppDelegate.h */,
+				AC51A25417104160005F65E8 /* AppDelegate.m */,
+				ACC365B61711970A00FBB415 /* TaskTimer.xcdatamodeld */,
+				AC51A25617104160005F65E8 /* MainMenu.xib */,
+				ACC365E51711B70900FBB415 /* TimeIntervalFormatter.h */,
+				ACC365E61711B70900FBB415 /* TimeIntervalFormatter.m */,
+				ACEC381D1718C43400E356A0 /* TimesheetWindow.xib */,
+				AC9ABAAC171ACFC5005C7E63 /* TimeSheetController.h */,
+				AC9ABAAD171ACFC5005C7E63 /* TimeSheetController.m */,
+				ACCD9737171C922C0013034D /* ScrollingTextView.h */,
+				ACCD9738171C922C0013034D /* ScrollingTextView.m */,
+				AC51A24817104160005F65E8 /* Supporting Files */,
+			);
+			path = TaskTimer;
+			sourceTree = "<group>";
+		};
+		AC51A24817104160005F65E8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AC51A24917104160005F65E8 /* TaskTimer-Info.plist */,
+				AC51A24A17104160005F65E8 /* InfoPlist.strings */,
+				AC51A24D17104160005F65E8 /* main.m */,
+				AC51A24F17104160005F65E8 /* TaskTimer-Prefix.pch */,
+				AC51A25017104160005F65E8 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		ACC365EE1711E7E600FBB415 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				ACFBAF591713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns */,
+				ACFBAF5A1713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns */,
+				ACFBAF5B1713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-start.icns */,
+				ACC365F71711E93200FBB415 /* Scheduled Tasks.icns */,
+				ACC365F81711E93200FBB415 /* Scheduled Tasks.png */,
+				ACC365EF1711E7E600FBB415 /* Pause.icns */,
+				ACC365F01711E7E600FBB415 /* Pause.png */,
+				ACC365F11711E7E600FBB415 /* Play.icns */,
+				ACC365F21711E7E600FBB415 /* Play.png */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AC51A23D17104160005F65E8 /* TaskTimer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC51A25B17104160005F65E8 /* Build configuration list for PBXNativeTarget "TaskTimer" */;
+			buildPhases = (
+				AC51A23A17104160005F65E8 /* Sources */,
+				AC51A23B17104160005F65E8 /* Frameworks */,
+				AC51A23C17104160005F65E8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TaskTimer;
+			productName = TaskTimer;
+			productReference = AC51A23E17104160005F65E8 /* TaskTimer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AC51A23617104160005F65E8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Mirko Bleyh";
+			};
+			buildConfigurationList = AC51A23917104160005F65E8 /* Build configuration list for PBXProject "TaskTimer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = AC51A23517104160005F65E8;
+			productRefGroup = AC51A23F17104160005F65E8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AC51A23D17104160005F65E8 /* TaskTimer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AC51A23C17104160005F65E8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC51A24C17104160005F65E8 /* InfoPlist.strings in Resources */,
+				AC51A25217104160005F65E8 /* Credits.rtf in Resources */,
+				AC51A25817104160005F65E8 /* MainMenu.xib in Resources */,
+				ACC365F31711E7E600FBB415 /* Pause.icns in Resources */,
+				ACC365F41711E7E600FBB415 /* Pause.png in Resources */,
+				ACC365F51711E7E600FBB415 /* Play.icns in Resources */,
+				ACC365F61711E7E600FBB415 /* Play.png in Resources */,
+				ACC365F91711E93200FBB415 /* Scheduled Tasks.icns in Resources */,
+				ACC365FA1711E93200FBB415 /* Scheduled Tasks.png in Resources */,
+				ACC365FC1711E95C00FBB415 /* Scheduled Tasks.icns in Resources */,
+				ACFBAF5C1713610E00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns in Resources */,
+				ACFBAF5D1713610E00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns in Resources */,
+				ACFBAF5E1713610E00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-start.icns in Resources */,
+				ACEC381E1718C43400E356A0 /* TimesheetWindow.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AC51A23A17104160005F65E8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC51A24E17104160005F65E8 /* main.m in Sources */,
+				AC51A25517104160005F65E8 /* AppDelegate.m in Sources */,
+				ACC365B81711970A00FBB415 /* TaskTimer.xcdatamodeld in Sources */,
+				ACC365E71711B70900FBB415 /* TimeIntervalFormatter.m in Sources */,
+				AC9ABAAE171ACFC5005C7E63 /* TimeSheetController.m in Sources */,
+				ACCD9739171C922C0013034D /* ScrollingTextView.m in Sources */,
+				ACCD973C171CA4CF0013034D /* FBScrollingTextView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		AC51A24A17104160005F65E8 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AC51A24B17104160005F65E8 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		AC51A25017104160005F65E8 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AC51A25117104160005F65E8 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		AC51A25617104160005F65E8 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AC51A25717104160005F65E8 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AC51A25917104160005F65E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		AC51A25A17104160005F65E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		AC51A25C17104160005F65E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../Plugins\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TaskTimer/TaskTimer-Prefix.pch";
+				INFOPLIST_FILE = "TaskTimer/TaskTimer-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		AC51A25D17104160005F65E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../Plugins\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TaskTimer/TaskTimer-Prefix.pch";
+				INFOPLIST_FILE = "TaskTimer/TaskTimer-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AC51A23917104160005F65E8 /* Build configuration list for PBXProject "TaskTimer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC51A25917104160005F65E8 /* Debug */,
+				AC51A25A17104160005F65E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AC51A25B17104160005F65E8 /* Build configuration list for PBXNativeTarget "TaskTimer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC51A25C17104160005F65E8 /* Debug */,
+				AC51A25D17104160005F65E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		ACC365B61711970A00FBB415 /* TaskTimer.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				ACC365B71711970A00FBB415 /* TaskTimer.xcdatamodel */,
+			);
+			currentVersion = ACC365B71711970A00FBB415 /* TaskTimer.xcdatamodel */;
+			path = TaskTimer.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = AC51A23617104160005F65E8 /* Project object */;
+}
