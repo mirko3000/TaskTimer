@@ -8,13 +8,15 @@
 
 
 #import "ScrollingTextView.h"
+#import "AppDelegate.h"
 
 @implementation ScrollingTextView
 
 @synthesize text;
-@synthesize staticText;
-@synthesize scrollingText;
 @synthesize speed;
+
+NSDictionary *attrs;
+AppDelegate *delegate;
 
 
 - (id)initWithFrame:(CGRect)frame {
@@ -22,32 +24,47 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code.
+        staticText = [[NSMutableString alloc]init];
+        scrollingText = [[NSMutableString alloc]init];
 
+        // Initialize text position
+        point = NSZeroPoint;
+        point.y = 3;
+        
+        // Set text attributes (font)
+        NSFont *font = [NSFont systemFontOfSize:[NSFont systemFontSize]];
+        //NSFont *font = [NSFont systemFontOfSize:11];
+        
+        attrs = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName,nil];
+        
     }
     return self;
 }
 
 
 - (void) setScrollingText:(NSString *)newText {
-    scrollingText = [newText copy];
-    point = NSZeroPoint;
-    
-    stringWidth = [newText sizeWithAttributes:nil].width;
+    [scrollingText setString:newText];
+    stringWidth = [newText sizeWithAttributes:attrs].width;
 }
 
 
 
 - (void) setStaticText:(NSString *)newText {
-    staticText = [newText copy];
-    //text = staticText;
-    //[self setNeedsDisplay:YES];
+    [staticText setString:newText];
+    if (scroller == NULL) {
+        text = staticText;
+    }
+}
+
+- (void) setDel:(AppDelegate *) del {
+    NSLog(@"Set delegate");
+    delegate = del;
 }
 
 
+// Force refresh
 - (void) updateText {
     [self setNeedsDisplay:YES];
-    text = staticText;
-    NSLog(@"Testsst");
 }
 
 
@@ -55,31 +72,33 @@
     NSLog(@"Setting speed");
     if (newSpeed != speed) {
         speed = newSpeed;
-        
         [scroller invalidate];
         scroller = nil;
     }
 }
 
+
 - (void) startAnimation {
-    NSSize size = self.frame.size;
-    point.x = size.width;
-    text = scrollingText;
+    if (scroller != NULL) {
+        NSSize size = self.frame.size;
+        point.x = size.width;
+        text = scrollingText;
     
-    if (speed > 0 && scrollingText != nil) {
-        scroller = [NSTimer scheduledTimerWithTimeInterval:speed target:self selector:@selector(moveText:) userInfo:nil repeats:YES];
+        if (speed > 0 && scrollingText != nil) {
+            scroller = [NSTimer scheduledTimerWithTimeInterval:0.001 target:self selector:@selector(moveText:) userInfo:nil repeats:YES];
+        }
     }
-    
 }
 
 
 - (void) moveText:(NSTimer *)timer {
-    point.x = point.x - 1.0f;
+    point.x = point.x - 0.08f;
     [self setNeedsDisplay:YES];
     
     // Stop timer if string reaches outer limit
-    if (point.x < -(stringWidth)) {
+    if (point.x < -(stringWidth+10)) {
         [scroller invalidate];
+        scroller = NULL;
         text = staticText;
         point.x = 0;
     }
@@ -88,21 +107,23 @@
 
 - (void)drawRect:(NSRect)dirtyRect {
     // Drawing code here.
-    
-    //if (point.x + stringWidth < 0) {
-    //    point.x += dirtyRect.size.width;
-    //    NSLog(@"Fehler?");
-    //}
-    NSFont *font = [NSFont systemFontOfSize:[NSFont systemFontSize]];
-    NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName,nil];
+
+    // Set background color
+    //[[NSColor redColor] set];
+    //NSRectFill([self bounds]);
     
     [text drawAtPoint:point withAttributes:attrs];
-    
-    //if (point.x < 0) {
-    //    NSPoint otherPoint = point;
-    //    otherPoint.x += dirtyRect.size.width;
-    //    [text drawAtPoint:otherPoint withAttributes:nil];
-    //}
 }
+
+
+-(BOOL)acceptsFirstMouse:(NSEvent *)event {
+    return YES;
+}
+
+
+-(void)mouseDown:(NSEvent *)event {
+    [delegate showStatusBarPopover:self];
+}
+
 
 @end

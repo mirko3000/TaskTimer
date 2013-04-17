@@ -74,6 +74,7 @@
 // Actions in the inactivity popup
 - (IBAction) radioButtonSelected:(id)sender;
 
+- (void) showStatusBarPopover:(id)sender;
 
 // Show timesheet window
 - (IBAction) showTimeSheet:(id)sender;

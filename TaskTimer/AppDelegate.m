@@ -59,17 +59,19 @@ NSDate* lastMouseMovementPopup;
 	//[scrollingView setString:@"Some long long long text"];
     
     
-    scrollingView = [[ScrollingTextView alloc] initWithFrame:NSMakeRect(0, 0, 60, 40)];
-    [scrollingView setStaticText:@"00:00:00"];
-    [scrollingView setScrollingText:@"Fachkonzept Stufe 2"];
+    scrollingView = [[ScrollingTextView alloc] initWithFrame:NSMakeRect(0, 0, 58, 40)];
+    [scrollingView setStaticText:@"--:--:--"];
+    [scrollingView setScrollingText:@"<missing task>"];
     [scrollingView setSpeed:0.015];
+    [scrollingView setDel:self];
+    [scrollingView updateText];
     
     //[statusView setAc]
     
-    statusItemButton = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 83, 22)];
-    statusItemButton.title = @"--:--:--";
-    statusItemButton.bordered = NO;
-    [statusItemButton setAction:@selector(clickStatusBar:)];
+//    statusItemButton = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 83, 22)];
+//    statusItemButton.title = @"--:--:--";
+//    statusItemButton.bordered = NO;
+//    [statusItemButton setAction:@selector(clickStatusBar:)];
     //statusItem.view = statusItemButton;
     statusItem.view = scrollingView;
     
@@ -372,12 +374,14 @@ NSDate* lastMouseMovementPopup;
 }
 
 
--(void)clickStatusBar:(id)sender{
+
+-(void)showStatusBarPopover:(id)sender{
     [[self popover] showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
 }
 
 
 
+// Dispath the add/remove buttons from the task table
 - (IBAction)taskSegControlClicked:(id)sender
 {
     int clickedSegment = (int)[sender selectedSegment];
@@ -392,6 +396,7 @@ NSDate* lastMouseMovementPopup;
 }
 
 
+// Dispath the add/remove buttons from the time table
 - (IBAction)timeSegControlClicked:(id)sender
 {
     int clickedSegment = (int)[sender selectedSegment];
@@ -439,10 +444,6 @@ NSDate* lastMouseMovementPopup;
         // Now remove task
         [taskItemsArrayController removeObject:[selObj objectAtIndex:0]];
     }
-    
-
-    
-    
 }
 
 
@@ -477,8 +478,6 @@ NSDate* lastMouseMovementPopup;
 
 
 
-
-
 - (IBAction)removeTimeItem:(id)sender {
     
     NSArray *selObj = [timeItemsArrayController selectedObjects];
@@ -505,7 +504,6 @@ NSDate* lastMouseMovementPopup;
 
 
 
-
 - (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center
      shouldPresentNotification:(NSUserNotification *)notification
 {
@@ -513,10 +511,10 @@ NSDate* lastMouseMovementPopup;
 }
 
 
+
+
 - (IBAction)startTiming:(id)sender
 {
-    [scrollingView startAnimation];
-    
     
     if ([[taskItemsArrayController selectedObjects] count] == 0) {
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -544,6 +542,8 @@ NSDate* lastMouseMovementPopup;
     [stopButton setEnabled:TRUE];
     [popupStopButton setEnabled:TRUE];
 
+    [scrollingView setScrollingText:[currentTimingTask valueForKey:@"name"]];
+    [scrollingView startAnimation];
 }
 
 
@@ -631,8 +631,12 @@ NSDate* lastMouseMovementPopup;
         notification.informativeText = [NSString stringWithFormat:@"You are currently timing %@", [currentTimingTask valueForKey:@"name"]];
 //        notification.soundName = NSUserNotificationDefaultSoundName;
         [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
-
     }
+    
+    if (minutes % 1 == 0 && seconds == 0) {
+        [scrollingView startAnimation];
+    }
+    
     [scrollingView setStaticText:[NSString stringWithFormat:@"%.2d:%.2d:%.2d", hours,
                                  minutes, seconds]];
     [scrollingView updateText];

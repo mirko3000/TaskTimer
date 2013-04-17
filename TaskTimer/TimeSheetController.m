@@ -16,12 +16,8 @@
     self = [super initWithWindow:window];
     
     if (self) {
-        // Inialization here...
-        //[self createTable];
-        [self buildTableColumn:@"Column1"];
-        [self buildTableColumn:@"Column2"];
-        [self buildTableColumn:@"Column3"];
         
+
     }
     
     return self;
@@ -32,18 +28,68 @@
 -(void)windowDidLoad {
     [super windowDidLoad];
     
-    //[self createTable];
-    // Other initialization here...
+    [self removeTableColumns];
+    
+    [self buildTableColumn:@"01.03.13"];
+    [self buildTableColumn:@"02.03.13"];
+    [self buildTableColumn:@"03.03.13"];
+    [self buildTableColumn:@"04.03.13"];
+    [self buildTableColumn:@"05.03.13"];
+    [self buildTableColumn:@"06.03.13"];
+    [self buildTableColumn:@"07.03.13"];
+    [self buildTableColumn:@"08.03.13"];
+    [self buildTableColumn:@"09.03.13"];
+    [self buildTableColumn:@"10.03.13"];
+    [self buildTableColumn:@"11.03.13"];
+    [self buildTableColumn:@"12.03.13"];
+    
+    [table reloadData];
+    
+    
+    NSDate *firstDayOfMonth = [[NSDate alloc] init];
+    NSDate *lastDayOfMonth = [[NSDate alloc] init];
+    
+    
+    // calculate first day
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *comp = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:firstDayOfMonth];
+    [comp setDay:1];
+    NSDate *firstDayOfMonthDate = [cal dateFromComponents:comp];
+    
+    // for the last day first add one month, then substract one day
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    [comps setMonth:1];
+    NSDate *beginningOfNextMonth = [cal dateByAddingComponents:comps toDate:firstDayOfMonthDate options:0];
+    
+    lastDayOfMonth = [beginningOfNextMonth dateByAddingTimeInterval:-(24*60)];
+    
+    
+    
+    [fromDatePicker setDateValue:firstDayOfMonthDate];
+    [toDatePicker setDateValue:lastDayOfMonth];
 }
+
+
 
 -(IBAction) selectClicked:(id)sender {
    
-    [scrollTest setStaticText:@"Kurz"];
-    [scrollTest setScrollingText:@"Das ist ein ganz langer Text"];
-    [scrollTest setSpeed:0.015];
+    [self removeTableColumns];
     
-    [scrollTest startAnimation];
+    NSDate *fromDate = [fromDatePicker dateValue];
+    NSDate *toDate = [toDatePicker dateValue];
     
+    NSDate *loopDate = [fromDate copy];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"dd.MM.YY"];
+    
+    while (![loopDate isGreaterThan:toDate]) {
+        [self buildTableColumn:[dateFormatter stringFromDate:loopDate]];
+        loopDate = [loopDate dateByAddingTimeInterval:60*60*24];
+    }
+    
+    
+    [table reloadData];
 }
 
 
@@ -59,97 +105,13 @@
 }
 
 
-
-
-- (void)createTable
-{
-    /* We need to remove the dynamic columns corresponding to the old data BEFORE we generate any new data. Removing columns forces a table update which will use cached outline items to get display values. If we dispose the old outline data then the outline has a dangling pointer (bad) */
-    [self removeDynamicColumns];
+- (void) removeTableColumns {
     
-    [self addDynamicColumns];
-    
-    
-    [table setNeedsDisplay:YES]; // needed to refresh the number of columns displayed
-//    [table setAutoresizesOutlineColumn:NO];
-    [table reloadData];
+    while([[table tableColumns] count] > 0) {
+        [table removeTableColumn:[[table tableColumns] lastObject]];
+    }    
 }
 
-
-- (void)addDynamicColumns
-{
-    
-    
-    // determine the column names
-    // ...
-        // configure the new column
-        NSTableColumn* column = [self createTableColumnWithIdentifier:@"Column1" title:@"Column 1"];
-        // add it to the table
-        [table addTableColumn:column];
-    
-    NSTableColumn* column2 = [self createTableColumnWithIdentifier:@"Column2" title:@"Column 2"];
-    // add it to the table
-    [table addTableColumn:column2];
-    NSTableColumn* column3 = [self createTableColumnWithIdentifier:@"Column3" title:@"Column 3"];
-    // add it to the table
-    [table addTableColumn:column3];
-        //[table moveColumn:([table numberOfColumns] - 1) toColumn:2];
-    
-}
-
-
-- (void)removeDynamicColumns
-{
-    NSTableColumn* column;
-    
-    
-    // assume the dynamic columns are at the front of the table
-    column = [[table tableColumns] objectAtIndex:1];
-    //while (![[column identifier] isEqualToString:StaticColumnIdentifier])
-   // {
-    //    [table removeTableColumn:column];
-    //    column = [[table tableColumns] objectAtIndex:1];
-   // }
-}
-
-
-- (NSTableColumn*)createTableColumnWithIdentifier:(NSString*) columnIdentifier title:(NSString*)columnTitle
-{
-    // configure the new column
-    NSTableColumn* column = [[NSTableColumn alloc] initWithIdentifier:columnIdentifier];
-    [column setEditable:NO];
-    
-    // we do not want the column to resize
-    // starting in 10.4, you should use setResizingMask: and not setResizable:
-    if ([column respondsToSelector:@selector(setResizingMask:)])
-        [column setResizingMask:NSTableColumnNoResizing];
-    else
-        [column setResizable:NO]; // pre-Tiger
-    
-  //  [[column headerCell] setFont:[table headerFont]];
-    [[column headerCell] setStringValue:columnTitle];
-   // [[column dataCell] setFont:[table tableFont]];
-   // [self copyColumnConfiguration:column fromColumn:[table tableColumnWithIdentifier:PrototypeColumnIdentifier]];
-    
-    return column;
-}
-
-
-
-- (void)copyColumnConfiguration:(NSTableColumn*)dstColumn fromColumn: (NSTableColumn*)srcColumn
-{
-    id srcCell;
-    id dstCell;
-    
-    srcCell = [srcColumn dataCell];
-    dstCell = [dstColumn dataCell];
-    [dstCell setAlignment:[srcCell alignment]];
-    [dstCell setFormatter:[srcCell formatter]];
-    
-    
-    srcCell = [srcColumn headerCell];
-    dstCell = [dstColumn headerCell];
-    [dstCell setAlignment:[srcCell alignment]];
-}
 
 
 
@@ -163,15 +125,10 @@
 	[textCell setFont: [NSFont systemFontOfSize: [NSFont systemFontSizeForControlSize: NSSmallControlSize]]];
 	[textCell setEditable: YES];
 	[newColumn setDataCell: textCell];
-    
-	//[newColumn bind: @"value" toObject: rowsController withKeyPath: [NSString stringWithFormat: @"arrangedObjects.%@", name] options: nil];
+    [newColumn setWidth:52.0];
     
 	[table addTableColumn: newColumn];
     
-    NSArray *columns = [table tableColumns];
-    for (NSTableColumn *column in columns) {
-        NSLog(@"Column: %@", [column identifier]);
-    }
     
 }
 

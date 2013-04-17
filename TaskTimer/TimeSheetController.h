@@ -11,8 +11,8 @@
 
 @interface TimeSheetController : NSWindowController <NSTableViewDataSource, NSApplicationDelegate> {
     IBOutlet NSTableView *table;
-    IBOutlet ScrollingTextView *scrollTest;
-    
+    IBOutlet NSDatePicker *fromDatePicker;
+    IBOutlet NSDatePicker *toDatePicker;
 }
 
 -(IBAction) selectClicked:(id)sender;
