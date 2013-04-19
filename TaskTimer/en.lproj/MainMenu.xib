@@ -1023,6 +1023,7 @@
 							<string key="NSFrame">{{1, 7}, {349, 367}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView" ref="1025442422"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<array class="NSMutableArray" key="NSTabViewItems">
 								<object class="NSTabViewItem" id="715027388">
@@ -1323,7 +1324,7 @@
 																<string key="NSFrameSize">{313, 232}</string>
 																<reference key="NSSuperview" ref="904772531"/>
 																<reference key="NSWindow"/>
-																<reference key="NSNextKeyView" ref="29231482"/>
+																<reference key="NSNextKeyView" ref="921033207"/>
 																<string key="NSReuseIdentifierKey">_NS:13</string>
 																<bool key="NSEnabled">YES</bool>
 																<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -1334,7 +1335,7 @@
 																	<string key="NSFrameSize">{313, 17}</string>
 																	<reference key="NSSuperview" ref="29231482"/>
 																	<reference key="NSWindow"/>
-																	<reference key="NSNextKeyView" ref="343516587"/>
+																	<reference key="NSNextKeyView" ref="904772531"/>
 																	<string key="NSReuseIdentifierKey">_NS:16</string>
 																	<reference key="NSTableView" ref="597383181"/>
 																</object>
@@ -1554,7 +1555,7 @@
 												<string key="NSFrame">{{8, 22}, {313, 265}}</string>
 												<reference key="NSSuperview" ref="1025442422"/>
 												<reference key="NSWindow"/>
-												<reference key="NSNextKeyView" ref="904772531"/>
+												<reference key="NSNextKeyView" ref="29231482"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<int key="NSsFlags">133810</int>
 												<reference key="NSVScroller" ref="921033207"/>
@@ -4180,8 +4181,8 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 								<int key="contentType">2</int>
 							</object>
 							<reference ref="697100540"/>
-							<reference ref="1025440127"/>
 							<reference ref="1011477387"/>
+							<reference ref="1025440127"/>
 						</array>
 						<reference key="parent" ref="449953622"/>
 					</object>
@@ -6502,7 +6503,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="awayTimeValueLabel">NSTextField</string>
-						<string key="currentTaskLabel">NSTextField</string>
 						<string key="detailsSheet">NSPanel</string>
 						<string key="inactivityCheckbox">NSButton</string>
 						<string key="inactivityRadioGroup">NSMatrix</string>
@@ -6527,10 +6527,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="awayTimeValueLabel">
 							<string key="name">awayTimeValueLabel</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="currentTaskLabel">
-							<string key="name">currentTaskLabel</string>
 							<string key="candidateClassName">NSTextField</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="detailsSheet">

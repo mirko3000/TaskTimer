@@ -8,9 +8,19 @@
 
 #import <Cocoa/Cocoa.h>
 @class ScrollingTextView;
+@class SynchroScrollView;
 
-@interface TimeSheetController : NSWindowController <NSTableViewDataSource, NSApplicationDelegate> {
+@interface TimeSheetController : NSWindowController <NSTableViewDataSource, NSApplicationDelegate, NSTableViewDelegate> {
     IBOutlet NSTableView *table;
+    IBOutlet NSTableView *headerTable;
+    IBOutlet SynchroScrollView *tableScrollView;
+    IBOutlet SynchroScrollView *headerTableScrollView;
+    
+    IBOutlet NSTableView *footerTable;
+    IBOutlet NSTableView *footerHeaderTable;
+    IBOutlet SynchroScrollView *footerTableScrollView;
+    IBOutlet SynchroScrollView *footerHeaderTableScrollView;
+    
     IBOutlet NSDatePicker *fromDatePicker;
     IBOutlet NSDatePicker *toDatePicker;
 }

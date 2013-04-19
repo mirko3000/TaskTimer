@@ -10,12 +10,14 @@
 #import "ScrollingTextView.h"
 #import "TaskResult.h"
 #import "TimeIntervalFormatter.h"
+#import "SynchroScrollView.h"
 
 @implementation TimeSheetController
 
 NSMutableDictionary *dataDict;
-
+NSMutableDictionary *footerDict;
 NSMutableArray *dataSet;
+//NSMutableArray *footerSet;
 
 TimeIntervalFormatter *timeFormatter;
 
@@ -35,25 +37,7 @@ TimeIntervalFormatter *timeFormatter;
 -(void)windowDidLoad {
     [super windowDidLoad];
     
-    [self removeTableColumns];
-    
-    [self buildTableColumn:@"Task"];
-    
-    [self buildTableColumn:@"01.03.13"];
-    [self buildTableColumn:@"02.03.13"];
-    [self buildTableColumn:@"03.03.13"];
-    [self buildTableColumn:@"04.03.13"];
-    [self buildTableColumn:@"05.03.13"];
-    [self buildTableColumn:@"06.03.13"];
-    [self buildTableColumn:@"07.03.13"];
-    [self buildTableColumn:@"08.03.13"];
-    [self buildTableColumn:@"09.03.13"];
-    [self buildTableColumn:@"10.03.13"];
-    [self buildTableColumn:@"11.03.13"];
-    [self buildTableColumn:@"12.03.13"];
-    
-    [table reloadData];
-    
+    [self removeTableColumns];    
     
     NSDate *firstDayOfMonth = [[NSDate alloc] init];
     NSDate *lastDayOfMonth = [[NSDate alloc] init];
@@ -72,10 +56,19 @@ TimeIntervalFormatter *timeFormatter;
     
     lastDayOfMonth = [beginningOfNextMonth dateByAddingTimeInterval:-(24*60)];
     
-    
-    
     [fromDatePicker setDateValue:firstDayOfMonthDate];
     [toDatePicker setDateValue:lastDayOfMonth];
+    
+    // Set up vertikal (up/down) scrolling synchro
+    [headerTableScrollView addSynchronizedScrollView:tableScrollView verticalScroll:YES horizontalScroll:NO];
+    [tableScrollView addSynchronizedScrollView:headerTableScrollView verticalScroll:YES horizontalScroll:NO];
+
+    
+    // Set up horizontal (right/left) scrolling synchro
+    [footerTableScrollView addSynchronizedScrollView:tableScrollView verticalScroll:NO horizontalScroll:YES];
+    [tableScrollView addSynchronizedScrollView:footerTableScrollView verticalScroll:NO horizontalScroll:YES];
+    
+    
 }
 
 
@@ -84,14 +77,15 @@ TimeIntervalFormatter *timeFormatter;
     
     // Init data map
     dataDict = [[NSMutableDictionary alloc] init];
+    footerDict = [[NSMutableDictionary alloc] init];
     
     // For each day calculate the sum of each task and the total sum of the day
     for (NSManagedObject *time in timeArray ) {
         
-        NSManagedObject *task = [time valueForKey:@"task"];
-        NSString *taskName = [task valueForKey:@"name"];
+        //NSManagedObject *task = [time valueForKey:@"task"];
+        //NSString *taskName = [task valueForKey:@"name"];
         NSDate *start = [time valueForKey:@"start"];
-        NSDate *end = [time valueForKey:@"end"];
+        //NSDate *end = [time valueForKey:@"end"];
         NSNumber *duration = [time valueForKey:@"duration"];
         
         // check if start and end is on the same day
@@ -109,7 +103,9 @@ TimeIntervalFormatter *timeFormatter;
         //NSLog(@"Key: %@", dateStringKey);
         
         if ([startComponents isEqualTo:endComponents]) {
-            // First get the taks array
+            
+            
+            // 1) First get the taks array
             NSMutableDictionary *dataForTaskArray;
             NSNumber *taskDayTime;
             
@@ -122,7 +118,7 @@ TimeIntervalFormatter *timeFormatter;
                 [dataDict setObject:dataForTaskArray forKey:[[time valueForKey:@"task"] valueForKey:@"name"]];
             }
             
-            // Second get the day
+            // 2) Second get the day
             if ([dataForTaskArray objectForKey:dateStringKey] != NULL) {
                 //NSLog(@"Date: %@", startComponents);
                 taskDayTime = [dataForTaskArray objectForKey:dateStringKey];
@@ -135,6 +131,33 @@ TimeIntervalFormatter *timeFormatter;
             // Now add the current timing duration to the time entry
             taskDayTime = [[NSNumber alloc] initWithDouble:([duration doubleValue] + [taskDayTime doubleValue])];
             [dataForTaskArray setObject:taskDayTime forKey:dateStringKey];
+            //NSLog(@"New value: %@ for task %@", taskDayTime, taskName);
+            
+            
+            
+//            // 3) Last get the day sum entry
+//            if ([dataDict objectForKey:@"! SUM"] != NULL) {
+//                dataForSumArray = [dataDict objectForKey:@"! SUM"];
+//            }
+//            else {
+//                // No entry yet for this task, create new dictionary
+//                dataForSumArray = [[NSMutableDictionary alloc] init];
+//                [dataDict setObject:dataForSumArray forKey:@"! SUM"];
+//            }
+            
+            // 4) Get the SUM day
+            if ([footerDict objectForKey:dateStringKey] != NULL) {
+                //NSLog(@"Date: %@", startComponents);
+                taskDayTime = [footerDict objectForKey:dateStringKey];
+            }
+            else {
+                // No entry yet for this day, create new entry
+                taskDayTime = [[NSNumber alloc] initWithDouble:0.0];
+            }
+            
+            // Now add the current timing duration to the time entry
+            taskDayTime = [[NSNumber alloc] initWithDouble:([duration doubleValue] + [taskDayTime doubleValue])];
+            [footerDict setObject:taskDayTime forKey:dateStringKey];
             //NSLog(@"New value: %@ for task %@", taskDayTime, taskName);
         }
     }
@@ -167,8 +190,6 @@ TimeIntervalFormatter *timeFormatter;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:@"dd.MM.YY"];
     
-    [self createHeaderColumn:@"Task"];
-    
     while (![loopDate isGreaterThan:toDate]) {
         [self buildTableColumn:[dateFormatter stringFromDate:loopDate]];
         loopDate = [loopDate dateByAddingTimeInterval:60*60*24];
@@ -179,9 +200,35 @@ TimeIntervalFormatter *timeFormatter;
 }
 
 
+//-(void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+//{
+//    [cell setDrawsBackground:YES];
+//    NSFont *font = [NSFont systemFontOfSize:14.0];
+//    
+//    
+//    if (row==0) {
+//        //[cell setBackgroundColor:[NSColor redColor]];
+//        [cell setFont:font];
+//    }
+//    else if(row==1||row==2) {
+//         //[cell setBackgroundColor:[NSColor blueColor]];
+//    }
+//    else {
+//        //[cell setBackgroundColor:[NSColor yellowColor]];
+//    }
+//}
+
+
+
+
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
-    return [dataSet count];
+    if (aTableView == table || aTableView == headerTable) {
+        return [dataSet count];
+    }
+    else {
+        return 1;
+    }
 }
 
 
@@ -190,13 +237,22 @@ TimeIntervalFormatter *timeFormatter;
     
     TaskResult *dict = [dataSet objectAtIndex:rowIndex];
     
-    // Handle header row
-    if ([[aTableColumn identifier] isEqualToString:@"Task"]) {
+    // Data table
+    if (aTableView == table) {
+        return [[dict timeDict] objectForKey:[aTableColumn identifier]];
+    }
+    // Header table
+    else if (aTableView == headerTable) {
+        
         return [dict taskName];
     }
-    // Handle date row
+    // Footer Header table
+    else if (aTableView == footerHeaderTable) {
+        return @"Sum";
+    }
+    // Footer data table
     else {
-        return [[dict timeDict] objectForKey:[aTableColumn identifier]];
+        return [footerDict objectForKey:[aTableColumn identifier]];
     }
     
     return @"<empty>";
@@ -204,10 +260,12 @@ TimeIntervalFormatter *timeFormatter;
 
 
 - (void) removeTableColumns {
-    
     while([[table tableColumns] count] > 0) {
         [table removeTableColumn:[[table tableColumns] lastObject]];
-    }    
+    }
+    while([[footerTable tableColumns] count] > 0) {
+        [footerTable removeTableColumn:[[footerTable tableColumns] lastObject]];
+    }
 }
 
 
@@ -244,6 +302,7 @@ TimeIntervalFormatter *timeFormatter;
     [textCell setFormatter:timeFormatter];
     
 	[table addTableColumn: newColumn];
+    [footerTable addTableColumn: newColumn];
     
 }
 

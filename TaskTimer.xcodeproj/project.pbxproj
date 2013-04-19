@@ -25,6 +25,7 @@
 		ACC365FC1711E95C00FBB415 /* Scheduled Tasks.icns in Resources */ = {isa = PBXBuildFile; fileRef = ACC365FB1711E95C00FBB415 /* Scheduled Tasks.icns */; };
 		ACCD9739171C922C0013034D /* ScrollingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCD9738171C922C0013034D /* ScrollingTextView.m */; };
 		ACCD973C171CA4CF0013034D /* FBScrollingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCD973B171CA4CF0013034D /* FBScrollingTextView.m */; };
+		ACE9C3D81721F6D900241BD4 /* SynchroScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE9C3D71721F6D900241BD4 /* SynchroScrollView.m */; };
 		ACEC381E1718C43400E356A0 /* TimesheetWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACEC381D1718C43400E356A0 /* TimesheetWindow.xib */; };
 		ACFBAF5C1713610E00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns in Resources */ = {isa = PBXBuildFile; fileRef = ACFBAF591713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns */; };
 		ACFBAF5D1713610E00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns in Resources */ = {isa = PBXBuildFile; fileRef = ACFBAF5A1713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns */; };
@@ -62,6 +63,8 @@
 		ACCD9738171C922C0013034D /* ScrollingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollingTextView.m; sourceTree = "<group>"; };
 		ACCD973A171CA4CF0013034D /* FBScrollingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBScrollingTextView.h; sourceTree = "<group>"; };
 		ACCD973B171CA4CF0013034D /* FBScrollingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBScrollingTextView.m; sourceTree = "<group>"; };
+		ACE9C3D61721F6D900241BD4 /* SynchroScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynchroScrollView.h; sourceTree = "<group>"; };
+		ACE9C3D71721F6D900241BD4 /* SynchroScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SynchroScrollView.m; sourceTree = "<group>"; };
 		ACEC381D1718C43400E356A0 /* TimesheetWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimesheetWindow.xib; sourceTree = "<group>"; };
 		ACFBAF591713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns"; path = "../Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns"; sourceTree = "<group>"; };
 		ACFBAF5A1713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns"; path = "../Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns"; sourceTree = "<group>"; };
@@ -122,22 +125,12 @@
 		AC51A24717104160005F65E8 /* TaskTimer */ = {
 			isa = PBXGroup;
 			children = (
-				ACCD973A171CA4CF0013034D /* FBScrollingTextView.h */,
-				ACCD973B171CA4CF0013034D /* FBScrollingTextView.m */,
+				ACE9C3DD17220DB200241BD4 /* data */,
+				ACE9C3DC17220D9900241BD4 /* timesheet */,
+				ACE9C3DB17220D7500241BD4 /* main */,
+				ACE9C3DA17220D5A00241BD4 /* ui */,
+				ACE9C3D917220D4500241BD4 /* util */,
 				ACC365EE1711E7E600FBB415 /* resources */,
-				AC51A25317104160005F65E8 /* AppDelegate.h */,
-				AC51A25417104160005F65E8 /* AppDelegate.m */,
-				ACC365B61711970A00FBB415 /* TaskTimer.xcdatamodeld */,
-				AC51A25617104160005F65E8 /* MainMenu.xib */,
-				ACC365E51711B70900FBB415 /* TimeIntervalFormatter.h */,
-				ACC365E61711B70900FBB415 /* TimeIntervalFormatter.m */,
-				ACEC381D1718C43400E356A0 /* TimesheetWindow.xib */,
-				AC9ABAAC171ACFC5005C7E63 /* TimeSheetController.h */,
-				AC9ABAAD171ACFC5005C7E63 /* TimeSheetController.m */,
-				ACCD9737171C922C0013034D /* ScrollingTextView.h */,
-				ACCD9738171C922C0013034D /* ScrollingTextView.m */,
-				B413C32B1721A78A0002CF6B /* TaskResult.h */,
-				B413C32C1721A78A0002CF6B /* TaskResult.m */,
 				AC51A24817104160005F65E8 /* Supporting Files */,
 			);
 			path = TaskTimer;
@@ -169,6 +162,58 @@
 				ACC365F21711E7E600FBB415 /* Play.png */,
 			);
 			path = resources;
+			sourceTree = "<group>";
+		};
+		ACE9C3D917220D4500241BD4 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				ACC365E51711B70900FBB415 /* TimeIntervalFormatter.h */,
+				ACC365E61711B70900FBB415 /* TimeIntervalFormatter.m */,
+			);
+			name = util;
+			sourceTree = "<group>";
+		};
+		ACE9C3DA17220D5A00241BD4 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				ACCD9737171C922C0013034D /* ScrollingTextView.h */,
+				ACCD9738171C922C0013034D /* ScrollingTextView.m */,
+				ACE9C3D61721F6D900241BD4 /* SynchroScrollView.h */,
+				ACE9C3D71721F6D900241BD4 /* SynchroScrollView.m */,
+				ACCD973A171CA4CF0013034D /* FBScrollingTextView.h */,
+				ACCD973B171CA4CF0013034D /* FBScrollingTextView.m */,
+			);
+			name = ui;
+			sourceTree = "<group>";
+		};
+		ACE9C3DB17220D7500241BD4 /* main */ = {
+			isa = PBXGroup;
+			children = (
+				AC51A25617104160005F65E8 /* MainMenu.xib */,
+				AC51A25317104160005F65E8 /* AppDelegate.h */,
+				AC51A25417104160005F65E8 /* AppDelegate.m */,
+			);
+			name = main;
+			sourceTree = "<group>";
+		};
+		ACE9C3DC17220D9900241BD4 /* timesheet */ = {
+			isa = PBXGroup;
+			children = (
+				B413C32B1721A78A0002CF6B /* TaskResult.h */,
+				B413C32C1721A78A0002CF6B /* TaskResult.m */,
+				ACEC381D1718C43400E356A0 /* TimesheetWindow.xib */,
+				AC9ABAAC171ACFC5005C7E63 /* TimeSheetController.h */,
+				AC9ABAAD171ACFC5005C7E63 /* TimeSheetController.m */,
+			);
+			name = timesheet;
+			sourceTree = "<group>";
+		};
+		ACE9C3DD17220DB200241BD4 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				ACC365B61711970A00FBB415 /* TaskTimer.xcdatamodeld */,
+			);
+			name = data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,6 +299,7 @@
 				ACCD9739171C922C0013034D /* ScrollingTextView.m in Sources */,
 				ACCD973C171CA4CF0013034D /* FBScrollingTextView.m in Sources */,
 				B413C32D1721A78A0002CF6B /* TaskResult.m in Sources */,
+				ACE9C3D81721F6D900241BD4 /* SynchroScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
