@@ -296,6 +296,12 @@ NSDate* lastMouseMovementPopup;
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
+    // Stop running timing
+    if (currentTimingTask != NULL) {
+        [self stopTiming:self];
+    }
+    
+    
     // Save changes in the application's managed object context before the application terminates.
     
     if (!_managedObjectContext) {
@@ -586,7 +592,6 @@ NSDate* lastMouseMovementPopup;
     //Show time entry popup
     //[taskEntryPopup makeKeyAndOrderFront:nil];
     
-    
     // Save data
     [self saveAction:self];
     
@@ -595,8 +600,8 @@ NSDate* lastMouseMovementPopup;
     [popupStopButton setEnabled:FALSE];
     
     [self doubleClick:self];
-    
 }
+
 
 - (void)recalculateTotalTime:(NSManagedObject*)forTask :(NSManagedObject*)withTiming {    
     // Get current total time of the Task

@@ -11,6 +11,10 @@
 
 @implementation TimeSheetController
 
+NSMutableDictionary *dataDict;
+
+NSMutableArray *dataSet;
+
 
 -(id)initWithWindow:(NSWindow *)window {
     self = [super initWithWindow:window];
@@ -29,6 +33,8 @@
     [super windowDidLoad];
     
     [self removeTableColumns];
+    
+    [self buildTableColumn:@"Task"];
     
     [self buildTableColumn:@"01.03.13"];
     [self buildTableColumn:@"02.03.13"];
@@ -73,6 +79,9 @@
 
 -(void) setData:(NSArray *)timeArray {
     
+    // Init data map
+    dataDict = [[NSMutableDictionary alloc] init];
+    
     // For each day calculate the sum of each task and the total sum of the day
     for (NSManagedObject *time in timeArray ) {
         
@@ -80,7 +89,7 @@
         NSString *taskName = [task valueForKey:@"name"];
         NSDate *start = [time valueForKey:@"start"];
         NSDate *end = [time valueForKey:@"end"];
-        NSNumber *duratino = [time valueForKey:@"duration"];
+        NSNumber *duration = [time valueForKey:@"duration"];
         
         // check if start and end is on the same day
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
@@ -89,15 +98,40 @@
         NSDateComponents *endComponents = [gregorian components:(NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit) fromDate:start];
         
         if ([startComponents isEqualTo:endComponents]) {
+            // First get the taks array
+            NSMutableDictionary *dataForTaskArray;
+            NSNumber *taskDayTime;
             
+            if ([dataDict objectForKey:[[time valueForKey:@"task"] valueForKey:@"name"]] != NULL) {
+                dataForTaskArray = [dataDict objectForKey:[[time valueForKey:@"task"] valueForKey:@"name"]];
+            }
+            else {
+                // No entry yet for this task, create new dictionary
+                dataForTaskArray = [[NSMutableDictionary alloc] init];
+                [dataDict setObject:dataForTaskArray forKey:[[time valueForKey:@"task"] valueForKey:@"name"]];
+            }
             
+            // Second get the day
+            if ([dataForTaskArray objectForKey:startComponents] != NULL) {
+                taskDayTime = [dataForTaskArray objectForKey:startComponents];
+            }
+            else {
+                // No entry yet for this day, create new entry
+                taskDayTime = [[NSNumber alloc] initWithDouble:0.0];
+                [dataForTaskArray setObject:taskDayTime forKey:startComponents];
+            }
             
+            // Now add the current timing duration to the time entry
+            taskDayTime = [[NSNumber alloc] initWithDouble:([duration doubleValue] + [taskDayTime doubleValue])];
+             NSLog(@"New value: %@ for task %@", taskDayTime, taskName);
         }
-        
-        
     }
     
-    
+    // Convert data into NSArray
+    dataSet = [[NSMutableArray alloc] init];
+    for (NSMutableDictionary *dict in dataDict) {
+        [dataSet addObject:dict];
+    }
 }
 
 
@@ -114,6 +148,8 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:@"dd.MM.YY"];
     
+    [self buildTableColumn:@"Task"];
+    
     while (![loopDate isGreaterThan:toDate]) {
         [self buildTableColumn:[dateFormatter stringFromDate:loopDate]];
         loopDate = [loopDate dateByAddingTimeInterval:60*60*24];
@@ -126,12 +162,25 @@
 
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
-    return 5;
+    return [dataSet count];
 }
 
 
 
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
+    
+    // Handle header row:
+    if ([[aTableColumn identifier] isEqualToString:@"Task"]) {
+        
+        NSMutableDictionary *dict = [dataSet objectAtIndex:rowIndex];
+        // get first element
+        
+        return 
+    }
+    
+    
+    NSLog(@"Column: %@", aTableColumn);
+    
     return @"TestContent";
 }
 

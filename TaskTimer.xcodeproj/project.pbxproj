@@ -29,6 +29,7 @@
 		ACFBAF5C1713610E00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns in Resources */ = {isa = PBXBuildFile; fileRef = ACFBAF591713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns */; };
 		ACFBAF5D1713610E00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns in Resources */ = {isa = PBXBuildFile; fileRef = ACFBAF5A1713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns */; };
 		ACFBAF5E1713610E00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-start.icns in Resources */ = {isa = PBXBuildFile; fileRef = ACFBAF5B1713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-start.icns */; };
+		B413C32D1721A78A0002CF6B /* TaskResult.m in Sources */ = {isa = PBXBuildFile; fileRef = B413C32C1721A78A0002CF6B /* TaskResult.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,8 @@
 		ACFBAF591713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns"; path = "../Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns"; sourceTree = "<group>"; };
 		ACFBAF5A1713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns"; path = "../Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns"; sourceTree = "<group>"; };
 		ACFBAF5B1713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-start.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "Oxygen-Icons.org-Oxygen-Actions-media-playback-start.icns"; path = "../Oxygen-Icons.org-Oxygen-Actions-media-playback-start.icns"; sourceTree = "<group>"; };
+		B413C32B1721A78A0002CF6B /* TaskResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskResult.h; sourceTree = "<group>"; };
+		B413C32C1721A78A0002CF6B /* TaskResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskResult.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +136,8 @@
 				AC9ABAAD171ACFC5005C7E63 /* TimeSheetController.m */,
 				ACCD9737171C922C0013034D /* ScrollingTextView.h */,
 				ACCD9738171C922C0013034D /* ScrollingTextView.m */,
+				B413C32B1721A78A0002CF6B /* TaskResult.h */,
+				B413C32C1721A78A0002CF6B /* TaskResult.m */,
 				AC51A24817104160005F65E8 /* Supporting Files */,
 			);
 			path = TaskTimer;
@@ -248,6 +253,7 @@
 				AC9ABAAE171ACFC5005C7E63 /* TimeSheetController.m in Sources */,
 				ACCD9739171C922C0013034D /* ScrollingTextView.m in Sources */,
 				ACCD973C171CA4CF0013034D /* FBScrollingTextView.m in Sources */,
+				B413C32D1721A78A0002CF6B /* TaskResult.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
