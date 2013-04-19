@@ -33,9 +33,12 @@ AppDelegate *delegate;
         
         // Set text attributes (font)
         NSFont *font = [NSFont systemFontOfSize:[NSFont systemFontSize]];
-        //NSFont *font = [NSFont systemFontOfSize:11];
+        //NSFont *font = [NSFont systemFontOfSize:14];
+        //NSFont* font= [NSFont fontWithName:@"Helvetica" size:12.0];
         
         attrs = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName,nil];
+        
+        scroller = NULL;
         
     }
     return self;
@@ -57,7 +60,6 @@ AppDelegate *delegate;
 }
 
 - (void) setDel:(AppDelegate *) del {
-    NSLog(@"Set delegate");
     delegate = del;
 }
 
@@ -69,7 +71,6 @@ AppDelegate *delegate;
 
 
 - (void) setSpeed:(NSTimeInterval)newSpeed {
-    NSLog(@"Setting speed");
     if (newSpeed != speed) {
         speed = newSpeed;
         [scroller invalidate];
@@ -79,7 +80,7 @@ AppDelegate *delegate;
 
 
 - (void) startAnimation {
-    if (scroller != NULL) {
+    if (scroller == NULL) {
         NSSize size = self.frame.size;
         point.x = size.width;
         text = scrollingText;
