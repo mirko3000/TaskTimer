@@ -10,4 +10,7 @@
 
 @implementation TaskResult
 
+@synthesize taskName;
+@synthesize timeDict;
+
 @end

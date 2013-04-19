@@ -8,6 +8,8 @@
 
 #import "TimeSheetController.h"
 #import "ScrollingTextView.h"
+#import "TaskResult.h"
+#import "TimeIntervalFormatter.h"
 
 @implementation TimeSheetController
 
@@ -15,13 +17,14 @@ NSMutableDictionary *dataDict;
 
 NSMutableArray *dataSet;
 
+TimeIntervalFormatter *timeFormatter;
+
 
 -(id)initWithWindow:(NSWindow *)window {
     self = [super initWithWindow:window];
     
     if (self) {
-        
-
+        timeFormatter = [[TimeIntervalFormatter alloc] init];
     }
     
     return self;
@@ -97,6 +100,14 @@ NSMutableArray *dataSet;
         NSDateComponents *startComponents = [gregorian components:(NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit) fromDate:start];
         NSDateComponents *endComponents = [gregorian components:(NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit) fromDate:start];
         
+        NSString *dateStringKey = [[NSMutableString alloc] init];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+        [dateFormatter setDateFormat:@"dd.MM.YY"];
+        dateStringKey = [dateFormatter stringFromDate:start];
+        
+        //NSLog(@"Key: %@", dateStringKey);
+        
         if ([startComponents isEqualTo:endComponents]) {
             // First get the taks array
             NSMutableDictionary *dataForTaskArray;
@@ -112,25 +123,33 @@ NSMutableArray *dataSet;
             }
             
             // Second get the day
-            if ([dataForTaskArray objectForKey:startComponents] != NULL) {
-                taskDayTime = [dataForTaskArray objectForKey:startComponents];
+            if ([dataForTaskArray objectForKey:dateStringKey] != NULL) {
+                //NSLog(@"Date: %@", startComponents);
+                taskDayTime = [dataForTaskArray objectForKey:dateStringKey];
             }
             else {
                 // No entry yet for this day, create new entry
                 taskDayTime = [[NSNumber alloc] initWithDouble:0.0];
-                [dataForTaskArray setObject:taskDayTime forKey:startComponents];
             }
             
             // Now add the current timing duration to the time entry
             taskDayTime = [[NSNumber alloc] initWithDouble:([duration doubleValue] + [taskDayTime doubleValue])];
-             NSLog(@"New value: %@ for task %@", taskDayTime, taskName);
+            [dataForTaskArray setObject:taskDayTime forKey:dateStringKey];
+            //NSLog(@"New value: %@ for task %@", taskDayTime, taskName);
         }
     }
     
     // Convert data into NSArray
     dataSet = [[NSMutableArray alloc] init];
-    for (NSMutableDictionary *dict in dataDict) {
-        [dataSet addObject:dict];
+    
+    NSEnumerator *keyEnum = [dataDict keyEnumerator];
+    NSString *key;
+    while(key = [keyEnum nextObject]) {
+        TaskResult *res = [[TaskResult alloc] init];
+        [res setTaskName:key];
+        NSDictionary *dict = [[dataDict objectForKey:key] copy];
+        [res setTimeDict:dict];
+        [dataSet addObject:res];
     }
 }
 
@@ -148,7 +167,7 @@ NSMutableArray *dataSet;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:@"dd.MM.YY"];
     
-    [self buildTableColumn:@"Task"];
+    [self createHeaderColumn:@"Task"];
     
     while (![loopDate isGreaterThan:toDate]) {
         [self buildTableColumn:[dateFormatter stringFromDate:loopDate]];
@@ -169,19 +188,18 @@ NSMutableArray *dataSet;
 
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
     
-    // Handle header row:
+    TaskResult *dict = [dataSet objectAtIndex:rowIndex];
+    
+    // Handle header row
     if ([[aTableColumn identifier] isEqualToString:@"Task"]) {
-        
-        NSMutableDictionary *dict = [dataSet objectAtIndex:rowIndex];
-        // get first element
-        
-        return 
+        return [dict taskName];
+    }
+    // Handle date row
+    else {
+        return [[dict timeDict] objectForKey:[aTableColumn identifier]];
     }
     
-    
-    NSLog(@"Column: %@", aTableColumn);
-    
-    return @"TestContent";
+    return @"<empty>";
 }
 
 
@@ -193,6 +211,22 @@ NSMutableArray *dataSet;
 }
 
 
+- (void) createHeaderColumn: (NSString *) name;
+{
+	NSTableColumn *newColumn = [[NSTableColumn alloc] initWithIdentifier: name];
+	[[newColumn headerCell] setStringValue: name];
+    
+	NSCell *textCell = [[NSTextFieldCell alloc] init];
+	[textCell setControlSize: NSSmallControlSize];
+	[textCell setFont: [NSFont systemFontOfSize: [NSFont systemFontSizeForControlSize: NSSmallControlSize]]];
+	[textCell setEditable: NO];
+	[newColumn setDataCell: textCell];
+    [newColumn setWidth:100.0];
+    
+	[table addTableColumn: newColumn];
+    
+}
+
 
 
 - (void) buildTableColumn: (NSString *) name;
@@ -203,12 +237,13 @@ NSMutableArray *dataSet;
 	NSCell *textCell = [[NSTextFieldCell alloc] init];
 	[textCell setControlSize: NSSmallControlSize];
 	[textCell setFont: [NSFont systemFontOfSize: [NSFont systemFontSizeForControlSize: NSSmallControlSize]]];
-	[textCell setEditable: YES];
+	[textCell setEditable: NO];
 	[newColumn setDataCell: textCell];
-    [newColumn setWidth:52.0];
+    [newColumn setWidth:60.0];
+    
+    [textCell setFormatter:timeFormatter];
     
 	[table addTableColumn: newColumn];
-    
     
 }
 

@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TaskResult : NSObject
+@interface TaskResult : NSObject {
+    NSString *taskName;
+    NSDictionary *timeDict;
+}
+
+@property (nonatomic, copy) NSString * taskName;
+@property (nonatomic) NSDictionary * timeDict;
 
 @end
