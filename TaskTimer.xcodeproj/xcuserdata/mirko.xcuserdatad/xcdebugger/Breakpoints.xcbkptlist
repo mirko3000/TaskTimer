@@ -73,11 +73,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TaskTimer/AppDelegate.m"
-         timestampString = "387831352.091439"
+         timestampString = "388002844.093124"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "561"
-         endingLineNumber = "561"
+         startingLineNumber = "557"
+         endingLineNumber = "557"
          landmarkName = "-stopTiming:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -86,11 +86,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TaskTimer/AppDelegate.m"
-         timestampString = "387831352.091439"
+         timestampString = "388002844.093124"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "532"
-         endingLineNumber = "532"
+         startingLineNumber = "528"
+         endingLineNumber = "528"
          landmarkName = "-startTiming:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -99,11 +99,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TaskTimer/AppDelegate.m"
-         timestampString = "387831352.091439"
+         timestampString = "388003675.47824"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "738"
-         endingLineNumber = "738"
+         startingLineNumber = "736"
+         endingLineNumber = "736"
          landmarkName = "-closeInactivityPopup:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -125,11 +125,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TaskTimer/AppDelegate.m"
-         timestampString = "387831352.091439"
+         timestampString = "388003675.47824"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "691"
-         endingLineNumber = "691"
+         startingLineNumber = "689"
+         endingLineNumber = "689"
          landmarkName = "-closeInactivityPopup:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -138,11 +138,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TaskTimer/AppDelegate.m"
-         timestampString = "387831352.091439"
+         timestampString = "388003675.47824"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "773"
-         endingLineNumber = "773"
+         startingLineNumber = "771"
+         endingLineNumber = "771"
          landmarkName = "-closeInactivityPopup:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -190,11 +190,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TaskTimer/AppDelegate.m"
-         timestampString = "387833931.602169"
+         timestampString = "388003675.47824"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "871"
-         endingLineNumber = "871"
+         startingLineNumber = "865"
+         endingLineNumber = "865"
          landmarkName = "-showTimeSheet:"
          landmarkType = "5">
       </FileBreakpoint>

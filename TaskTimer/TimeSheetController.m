@@ -71,6 +71,37 @@
 
 
 
+-(void) setData:(NSArray *)timeArray {
+    
+    // For each day calculate the sum of each task and the total sum of the day
+    for (NSManagedObject *time in timeArray ) {
+        
+        NSManagedObject *task = [time valueForKey:@"task"];
+        NSString *taskName = [task valueForKey:@"name"];
+        NSDate *start = [time valueForKey:@"start"];
+        NSDate *end = [time valueForKey:@"end"];
+        NSNumber *duratino = [time valueForKey:@"duration"];
+        
+        // check if start and end is on the same day
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        
+        NSDateComponents *startComponents = [gregorian components:(NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit) fromDate:start];
+        NSDateComponents *endComponents = [gregorian components:(NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit) fromDate:start];
+        
+        if ([startComponents isEqualTo:endComponents]) {
+            
+            
+            
+        }
+        
+        
+    }
+    
+    
+}
+
+
+
 -(IBAction) selectClicked:(id)sender {
    
     [self removeTableColumns];

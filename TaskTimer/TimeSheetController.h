@@ -16,6 +16,7 @@
 }
 
 -(IBAction) selectClicked:(id)sender;
+-(void) setData:(NSArray*)timeArray;
 
 
 @end

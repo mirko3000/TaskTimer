@@ -141,14 +141,11 @@ NSDate* lastMouseMovementPopup;
                                                        lastMouseMovement = [[NSDate alloc] init];
                                                    }
                                                }
-
-
                                            }];
     
     
     
     // Mouse Handler
-    
     [NSEvent addGlobalMonitorForEventsMatchingMask:NSMouseMovedMask
                                            handler:^(NSEvent *event){
                                     
@@ -165,7 +162,6 @@ NSDate* lastMouseMovementPopup;
                                                        lastMouseMovement = [[NSDate alloc] init];
                                                    }
                                                }
-                                               
                                            }];
     
 }
@@ -576,7 +572,6 @@ NSDate* lastMouseMovementPopup;
     
     [self recalculateTotalTime:currentTimingTask:newTiming];
     
-    
     NSLog(@"Added Timing: %@", [newTiming valueForKey:@"duration"]);
     
     [timeItemsArrayController addObject:newTiming];
@@ -613,7 +608,6 @@ NSDate* lastMouseMovementPopup;
 
     
     [forTask setValue:[[NSNumber alloc] initWithDouble:(interval + newTime)] forKey:@"totalTime"];
-    
 }
 
 
@@ -666,18 +660,22 @@ NSDate* lastMouseMovementPopup;
              [awayTimeValueLabel setStringValue:[NSString stringWithFormat:@"%.2d seconds", seconds]];
         }
         
+        NSArray *a = [taskItemsArrayController arrangedObjects];
+        
+        if (currentTimingTask != NULL) {
+            [inactivityTaskCombo selectItemAtIndex:[a indexOfObject:currentTimingTask]];
+            [inactivityRadioGroup selectCellWithTag:2];
+        }
+
+        [self radioButtonSelected:inactivityRadioGroup];
         [inactivityWindow makeKeyAndOrderFront:object];
         [inactivityWindow setWorksWhenModal:TRUE];
     }
-    
-
-
 }
 
 
 - (void) closeInactivityPopup:(id)object {
     
-        
     // Check if we have a running timing and not selected "do nothing"
     if (currentTimingTask == nil) {
         
@@ -777,7 +775,7 @@ NSDate* lastMouseMovementPopup;
                 [popupStatusLabel setStringValue:[currentTimingTask valueForKey:@"name"]];
                 
                 //Show the popup
-                [[self popover] showRelativeToRect:[statusItemButton bounds] ofView:statusItemButton preferredEdge:NSMaxYEdge];
+                [[self popover] showRelativeToRect:[scrollingView bounds] ofView:scrollingView preferredEdge:NSMaxYEdge];
                 
             }
         }
@@ -811,7 +809,7 @@ NSDate* lastMouseMovementPopup;
             [popupStatusLabel setStringValue:[currentTimingTask valueForKey:@"name"]];
             
             //Show the popup
-            [[self popover] showRelativeToRect:[statusItemButton bounds] ofView:statusItemButton preferredEdge:NSMaxYEdge];
+            [[self popover] showRelativeToRect:[scrollingView bounds] ofView:scrollingView preferredEdge:NSMaxYEdge];
         }
     }
     
@@ -821,11 +819,8 @@ NSDate* lastMouseMovementPopup;
     // Close the window
     [NSApp endSheet:inactivityWindow];
     [inactivityWindow orderOut:object];
-    
-
-    
-    
 }
+
 
 - (IBAction) radioButtonSelected:(id)sender {
     
@@ -862,15 +857,17 @@ NSDate* lastMouseMovementPopup;
 
 
 
+
+
 -(IBAction)showTimeSheet:(id)sender {
     if (!timeSheetController) {
         timeSheetController = [[TimeSheetController alloc] initWithWindowNibName:@"TimesheetWindow"];
         
     }
     
+    [timeSheetController setData:[timeItemsArrayController arrangedObjects]];
     [timeSheetController showWindow:self];
 }
-
 
 
 @end
