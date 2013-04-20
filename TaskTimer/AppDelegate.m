@@ -10,13 +10,13 @@
 #import "TimeSheetController.h"
 #import "ScrollingTextView.h"
 #import "FBScrollingTextView.h"
+#import "DataManager.h"
 
 @implementation AppDelegate
 
 //@synthesize window;
 @synthesize window = _window;
 @synthesize popover;
-@synthesize taskEntryPopup;
 
 // Variables for the timer
 NSInteger currentFrame;
@@ -28,9 +28,8 @@ NSManagedObject *currentTimingTask;
 NSDate* lastMouseMovement;
 NSDate* lastMouseMovementPopup;
 
-@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
-@synthesize managedObjectModel = _managedObjectModel;
-@synthesize managedObjectContext = _managedObjectContext;
+// Data Manager
+DataManager *dm;
 
 
 - (id)init {
@@ -133,7 +132,7 @@ NSDate* lastMouseMovementPopup;
                                                }
                                                else {
                                                    NSTimeInterval interval = -[lastMouseMovement timeIntervalSinceNow];
-                                                   if (interval > 120) {
+                                                   if (interval > 10) {
                                                        NSLog(@"Awake from inaktive: %f", interval);
                                                        [self showInactivityPopup:self];
                                                    }
@@ -142,7 +141,6 @@ NSDate* lastMouseMovementPopup;
                                                    }
                                                }
                                            }];
-    
     
     
     // Mouse Handler
@@ -154,7 +152,7 @@ NSDate* lastMouseMovementPopup;
                                                }
                                                else {
                                                    NSTimeInterval interval = -[lastMouseMovement timeIntervalSinceNow];
-                                                   if (interval > 120) {
+                                                   if (interval > 10) {
                                                        NSLog(@"Awake from inaktive: %f", interval);
                                                        [self showInactivityPopup:self];
                                                    }
@@ -167,113 +165,10 @@ NSDate* lastMouseMovementPopup;
 }
 
 
-// Returns the directory the application uses to store the Core Data store file. This code uses a directory named "de.mbsoft.TestCoreData" in the user's Application Support directory.
-- (NSURL *)applicationFilesDirectory
-{
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *appSupportURL = [[fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] lastObject];
-    return [appSupportURL URLByAppendingPathComponent:@"de.mbsoft.TaskTimer"];
-}
-
-
-
-// Creates if necessary and returns the managed object model for the application.
-- (NSManagedObjectModel *)managedObjectModel
-{
-    if (_managedObjectModel) {
-        return _managedObjectModel;
-    }
-	
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"TaskTimer" withExtension:@"momd"];
-    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    return _managedObjectModel;
-}
-
-
-
-// Returns the persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. (The directory for the store is created, if necessary.)
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
-{
-    if (_persistentStoreCoordinator) {
-        return _persistentStoreCoordinator;
-    }
-    
-    NSManagedObjectModel *mom = [self managedObjectModel];
-    if (!mom) {
-        NSLog(@"%@:%@ No model to generate a store from", [self class], NSStringFromSelector(_cmd));
-        return nil;
-    }
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
-    NSError *error = nil;
-    
-    NSDictionary *properties = [applicationFilesDirectory resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&error];
-    
-    if (!properties) {
-        BOOL ok = NO;
-        if ([error code] == NSFileReadNoSuchFileError) {
-            ok = [fileManager createDirectoryAtPath:[applicationFilesDirectory path] withIntermediateDirectories:YES attributes:nil error:&error];
-        }
-        if (!ok) {
-            [[NSApplication sharedApplication] presentError:error];
-            return nil;
-        }
-    } else {
-        if (![properties[NSURLIsDirectoryKey] boolValue]) {
-            // Customize and localize this error.
-            NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store application data, found a file (%@).", [applicationFilesDirectory path]];
-            
-            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-            [dict setValue:failureDescription forKey:NSLocalizedDescriptionKey];
-            error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:101 userInfo:dict];
-            
-            [[NSApplication sharedApplication] presentError:error];
-            return nil;
-        }
-    }
-    
-    NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:@"TaskTimer.storedata"];
-    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
-    if (![coordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options:nil error:&error]) {
-        [[NSApplication sharedApplication] presentError:error];
-        return nil;
-    }
-    _persistentStoreCoordinator = coordinator;
-    
-    return _persistentStoreCoordinator;
-}
-
-
-
-// Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.)
-- (NSManagedObjectContext *)managedObjectContext
-{
-    if (_managedObjectContext) {
-        return _managedObjectContext;
-    }
-    
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (!coordinator) {
-        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-        [dict setValue:@"Failed to initialize the store" forKey:NSLocalizedDescriptionKey];
-        [dict setValue:@"There was an error building up the data file." forKey:NSLocalizedFailureReasonErrorKey];
-        NSError *error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
-        [[NSApplication sharedApplication] presentError:error];
-        return nil;
-    }
-    _managedObjectContext = [[NSManagedObjectContext alloc] init];
-    [_managedObjectContext setPersistentStoreCoordinator:coordinator];
-    
-    return _managedObjectContext;
-}
-
-
-
 // Returns the NSUndoManager for the application. In this case, the manager returned is that of the managed object context for the application.
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window
 {
-    return [[self managedObjectContext] undoManager];
+    return [[dm managedObjectContext] undoManager];
 }
 
 
@@ -283,11 +178,11 @@ NSDate* lastMouseMovementPopup;
 {
     NSError *error = nil;
     
-    if (![[self managedObjectContext] commitEditing]) {
+    if (![[dm managedObjectContext] commitEditing]) {
         NSLog(@"%@:%@ unable to commit editing before saving", [self class], NSStringFromSelector(_cmd));
     }
     
-    if (![[self managedObjectContext] save:&error]) {
+    if (![[dm managedObjectContext] save:&error]) {
         [[NSApplication sharedApplication] presentError:error];
     }
 }
@@ -304,21 +199,21 @@ NSDate* lastMouseMovementPopup;
     
     // Save changes in the application's managed object context before the application terminates.
     
-    if (!_managedObjectContext) {
+    if (![dm managedObjectContext]) {
         return NSTerminateNow;
     }
     
-    if (![[self managedObjectContext] commitEditing]) {
+    if (![[dm managedObjectContext] commitEditing]) {
         NSLog(@"%@:%@ unable to commit editing to terminate", [self class], NSStringFromSelector(_cmd));
         return NSTerminateCancel;
     }
     
-    if (![[self managedObjectContext] hasChanges]) {
+    if (![[dm managedObjectContext] hasChanges]) {
         return NSTerminateNow;
     }
     
     NSError *error = nil;
-    if (![[self managedObjectContext] save:&error]) {
+    if (![[dm managedObjectContext] save:&error]) {
         
         // Customize this code block to include application-specific recovery steps.
         BOOL result = [sender presentError:error];
@@ -392,7 +287,7 @@ NSDate* lastMouseMovementPopup;
     if (clickedSegment == 0) {
         [self addNewTaskItem:self];
     }
-    else {
+    else if (clickedSegment == 1) {
         [self removeTaskItem:self];
     }
 }
@@ -407,7 +302,7 @@ NSDate* lastMouseMovementPopup;
     if (clickedSegment == 0) {
         [self addNewTimeItem:self];
     }
-    else {
+    else if (clickedSegment == 1) {
         [self removeTimeItem:self];
     }
 }
@@ -417,7 +312,7 @@ NSDate* lastMouseMovementPopup;
 - (IBAction)addNewTaskItem:(id)sender {
     NSManagedObject *newTask = [NSEntityDescription
                                     insertNewObjectForEntityForName:@"Task"
-                                    inManagedObjectContext:_managedObjectContext];
+                                    inManagedObjectContext:[dm managedObjectContext]];
     
     //[newTask setValue:@"Test" forKey:@"finished"];
     [newTask setValue:@"New Task" forKey:@"name"];
@@ -451,12 +346,11 @@ NSDate* lastMouseMovementPopup;
 
 
 - (IBAction)addNewTimeItem:(id)sender {
-    
     if ([[timeItemsArrayController selectedObjects] count] > 0) {
     
     NSManagedObject *newTime = [NSEntityDescription
                                 insertNewObjectForEntityForName:@"Time"
-                                inManagedObjectContext:_managedObjectContext];
+                                inManagedObjectContext:[dm managedObjectContext]];
     
     NSManagedObject *selTime = [[timeItemsArrayController selectedObjects] objectAtIndex:0];
     
@@ -473,15 +367,12 @@ NSDate* lastMouseMovementPopup;
         modalDelegate:self
        didEndSelector:nil
           contextInfo:nil];
-    
     }
-    
 }
 
 
 
 - (IBAction)removeTimeItem:(id)sender {
-    
     NSArray *selObj = [timeItemsArrayController selectedObjects];
     
     if ([selObj count] > 0) {
@@ -499,9 +390,6 @@ NSDate* lastMouseMovementPopup;
         
         [timeItemsArrayController removeObject:[selObj objectAtIndex:0]];
     }
-    
-    
-    
 }
 
 
@@ -511,7 +399,6 @@ NSDate* lastMouseMovementPopup;
 {
     return YES;
 }
-
 
 
 
@@ -566,7 +453,7 @@ NSDate* lastMouseMovementPopup;
     
     NSManagedObject *newTiming = [NSEntityDescription
                                 insertNewObjectForEntityForName:@"Time"
-                                inManagedObjectContext:_managedObjectContext];
+                                inManagedObjectContext:[dm managedObjectContext]];
 
     [newTiming setValue:startDate forKey:@"start"];
     [newTiming setValue:[[NSDate alloc] init] forKey:@"end"];
@@ -588,9 +475,6 @@ NSDate* lastMouseMovementPopup;
     
     //Show the popup
     [[self popover] showRelativeToRect:[scrollingView bounds] ofView:scrollingView preferredEdge:NSMaxYEdge];
-    
-    //Show time entry popup
-    //[taskEntryPopup makeKeyAndOrderFront:nil];
     
     // Save data
     [self saveAction:self];
@@ -701,7 +585,7 @@ NSDate* lastMouseMovementPopup;
             
                 NSManagedObject *newTiming = [NSEntityDescription
                                       insertNewObjectForEntityForName:@"Time"
-                                      inManagedObjectContext:_managedObjectContext];
+                                      inManagedObjectContext:[dm managedObjectContext]];
         
                 [newTiming setValue:lastMouseMovementPopup forKey:@"start"];
                 [newTiming setValue:[[NSDate alloc] init] forKey:@"end"];
@@ -740,7 +624,7 @@ NSDate* lastMouseMovementPopup;
                 // Store the running timing
                 NSManagedObject *runningTiming = [NSEntityDescription
                                               insertNewObjectForEntityForName:@"Time"
-                                              inManagedObjectContext:_managedObjectContext];
+                                              inManagedObjectContext:[dm managedObjectContext]];
                 
                 [runningTiming setValue:startDate forKey:@"start"];
                 [runningTiming setValue:lastMouseMovementPopup forKey:@"end"];
@@ -758,7 +642,7 @@ NSDate* lastMouseMovementPopup;
                 // Store inactivity task
                 NSManagedObject *inactivityTiming = [NSEntityDescription
                                               insertNewObjectForEntityForName:@"Time"
-                                              inManagedObjectContext:_managedObjectContext];
+                                                     inManagedObjectContext:[dm managedObjectContext]];
                 
                 [inactivityTiming setValue:lastMouseMovementPopup forKey:@"start"];
                 [inactivityTiming setValue:[[NSDate alloc] init] forKey:@"end"];
@@ -793,7 +677,7 @@ NSDate* lastMouseMovementPopup;
             // Store inactivity task
             NSManagedObject *inactivityTiming = [NSEntityDescription
                                                  insertNewObjectForEntityForName:@"Time"
-                                                 inManagedObjectContext:_managedObjectContext];
+                                                 inManagedObjectContext:[dm managedObjectContext]];
             
             [inactivityTiming setValue:startDate forKey:@"start"];
             [inactivityTiming setValue:lastMouseMovementPopup forKey:@"end"];
@@ -862,12 +746,9 @@ NSDate* lastMouseMovementPopup;
 
 
 
-
-
 -(IBAction)showTimeSheet:(id)sender {
     if (!timeSheetController) {
         timeSheetController = [[TimeSheetController alloc] initWithWindowNibName:@"TimesheetWindow"];
-        
     }
     
     [timeSheetController setData:[timeItemsArrayController arrangedObjects]];

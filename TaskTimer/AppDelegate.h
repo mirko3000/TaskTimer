@@ -10,6 +10,7 @@
 @class TimeSheetController;
 @class ScrollingTextView;
 @class FBScrollingTextView;
+@class DataManager;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate> {
     
@@ -54,15 +55,11 @@
     IBOutlet NSComboBox *inactivityTaskCombo;
     IBOutlet NSMatrix *inactivityRadioGroup;
     IBOutlet NSButton *inactivityCheckbox;
+    
+    // Data Management
+    IBOutlet DataManager *dm;
 
 }
-
-
-- (IBAction)addNewTaskItem:(id)sender;
-- (IBAction)removeTaskItem:(id)sender;
-
-- (IBAction)addNewTimeItem:(id)sender;
-- (IBAction)removeTimeItem:(id)sender;
 
 - (IBAction)startTiming:(id)sender;
 - (IBAction)stopTiming:(id)sender;
@@ -79,21 +76,10 @@
 // Show timesheet window
 - (IBAction) showTimeSheet:(id)sender;
 
-
-// Persistency objects
-@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
-@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-
-// Scrolling text view
-@property (retain) FBScrollingTextView *tView;
-
 // Persistence action
 - (IBAction)saveAction:(id)sender;
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSPopover *popover;
-@property (assign) IBOutlet NSPanel *taskEntryPopup;
-
 
 @end

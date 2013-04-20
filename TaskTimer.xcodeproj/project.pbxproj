@@ -26,6 +26,7 @@
 		ACCD9739171C922C0013034D /* ScrollingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCD9738171C922C0013034D /* ScrollingTextView.m */; };
 		ACCD973C171CA4CF0013034D /* FBScrollingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCD973B171CA4CF0013034D /* FBScrollingTextView.m */; };
 		ACE9C3D81721F6D900241BD4 /* SynchroScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE9C3D71721F6D900241BD4 /* SynchroScrollView.m */; };
+		ACE9C3E01722165300241BD4 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE9C3DF1722165300241BD4 /* DataManager.m */; };
 		ACEC381E1718C43400E356A0 /* TimesheetWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACEC381D1718C43400E356A0 /* TimesheetWindow.xib */; };
 		ACFBAF5C1713610E00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns in Resources */ = {isa = PBXBuildFile; fileRef = ACFBAF591713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns */; };
 		ACFBAF5D1713610E00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns in Resources */ = {isa = PBXBuildFile; fileRef = ACFBAF5A1713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns */; };
@@ -65,6 +66,8 @@
 		ACCD973B171CA4CF0013034D /* FBScrollingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBScrollingTextView.m; sourceTree = "<group>"; };
 		ACE9C3D61721F6D900241BD4 /* SynchroScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynchroScrollView.h; sourceTree = "<group>"; };
 		ACE9C3D71721F6D900241BD4 /* SynchroScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SynchroScrollView.m; sourceTree = "<group>"; };
+		ACE9C3DE1722165300241BD4 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
+		ACE9C3DF1722165300241BD4 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		ACEC381D1718C43400E356A0 /* TimesheetWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimesheetWindow.xib; sourceTree = "<group>"; };
 		ACFBAF591713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns"; path = "../Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns"; sourceTree = "<group>"; };
 		ACFBAF5A1713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns"; path = "../Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns"; sourceTree = "<group>"; };
@@ -212,6 +215,8 @@
 			isa = PBXGroup;
 			children = (
 				ACC365B61711970A00FBB415 /* TaskTimer.xcdatamodeld */,
+				ACE9C3DE1722165300241BD4 /* DataManager.h */,
+				ACE9C3DF1722165300241BD4 /* DataManager.m */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -300,6 +305,7 @@
 				ACCD973C171CA4CF0013034D /* FBScrollingTextView.m in Sources */,
 				B413C32D1721A78A0002CF6B /* TaskResult.m in Sources */,
 				ACE9C3D81721F6D900241BD4 /* SynchroScrollView.m in Sources */,
+				ACE9C3E01722165300241BD4 /* DataManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
