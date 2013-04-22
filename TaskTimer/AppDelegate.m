@@ -31,6 +31,9 @@ NSDate* lastMouseMovementPopup;
 // Data Manager
 DataManager *dm;
 
+// Silent mode flag
+bool silent = false;
+
 
 - (id)init {
     self = [super init];
@@ -152,7 +155,7 @@ DataManager *dm;
                                                }
                                                else {
                                                    NSTimeInterval interval = -[lastMouseMovement timeIntervalSinceNow];
-                                                   if (interval > 120) {
+                                                   if (interval > 10) {
                                                        NSLog(@"Awake from inaktive: %f", interval);
                                                        [self showInactivityPopup:self];
                                                    }
@@ -465,7 +468,7 @@ DataManager *dm;
     
     [self recalculateTotalTime:currentTimingTask:newTiming];
     
-    NSLog(@"Added Timing: %@", [newTiming valueForKey:@"duration"]);
+    //NSLog(@"Added Timing: %@", [newTiming valueForKey:@"duration"]);
     
     [timeItemsArrayController addObject:newTiming];
     
@@ -507,7 +510,7 @@ DataManager *dm;
     int minutes = ((int) (interval - seconds) / 60) % 60;
     int hours = ((int) interval - seconds - 60 * minutes) / 3600;
     
-    if (minutes % 15 == 0 && seconds == 0) {
+    if (minutes % 15 == 0 && seconds == 0 && !silent) {
         
         NSUserNotification *notification = [[NSUserNotification alloc] init];
         notification.title = @"Task Timer Notification";
@@ -516,7 +519,7 @@ DataManager *dm;
         [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
     }
     
-    if (minutes % 1 == 0 && seconds == 0) {
+    if (minutes % 1 == 0 && seconds == 0 && !silent) {
         [scrollingView startAnimation];
     }
     
@@ -529,7 +532,7 @@ DataManager *dm;
 
 - (void) showInactivityPopup:(id)object {
     
-    if(! [inactivityWindow isVisible] ) {
+    if(! [inactivityWindow isVisible] && !silent) {
         
         lastMouseMovementPopup = [lastMouseMovement copy];
         
@@ -598,6 +601,10 @@ DataManager *dm;
                 [self recalculateTotalTime:selValue:newTiming];
 
                 [timeItemsArrayController addObject:newTiming];
+                
+                
+                // Open details panel
+                [self doubleClick:self];
             
             }
         }
@@ -658,13 +665,23 @@ DataManager *dm;
                 
                 // Start (virtually) new timing
                 startDate = [[NSDate alloc] init];
-                currentTimingTask = selValue;
+                
+                if ([inactivityCheckbox state] == NSOnState) {
+                    // Continue with the inactivity task
+                    currentTimingTask = selValue;
+                }
+                else {
+                    // Continue with the running task
+                }
                 
                 // Update popover and show it
                 [popupStatusLabel setStringValue:[currentTimingTask valueForKey:@"name"]];
                 
                 //Show the popup
                 [[self popover] showRelativeToRect:[scrollingView bounds] ofView:scrollingView preferredEdge:NSMaxYEdge];
+             
+                // Show details panel
+                [self doubleClick:self];
                 
             }
         }
@@ -699,6 +716,8 @@ DataManager *dm;
             
             //Show the popup
             [[self popover] showRelativeToRect:[scrollingView bounds] ofView:scrollingView preferredEdge:NSMaxYEdge];
+            
+            [self doubleClick:self];
         }
     }
     
@@ -732,7 +751,10 @@ DataManager *dm;
        modalForWindow:(NSWindow *)_window
         modalDelegate:self
        didEndSelector:nil
-          contextInfo:nil];    
+          contextInfo:nil];
+    
+    [detailsSheet makeFirstResponder:detailsCommentField];
+    
 }
 
 
@@ -754,6 +776,24 @@ DataManager *dm;
     [timeSheetController setData:[timeItemsArrayController arrangedObjects]];
     [timeSheetController showWindow:self];
 }
+
+
+
+- (IBAction)toggleSilentMode:(id)sender {
+    
+    if (silent == FALSE) {
+        silent = TRUE;
+        //[silentButton setLabel:@"Silent"];
+        [silentButton setImage:[[NSImage alloc] initByReferencingFile:[[NSBundle mainBundle] pathForImageResource:@"notification.png"]]];
+    }
+    else {
+        silent = FALSE;
+        //[silentButton setLabel:@"Normal"];
+        [silentButton setImage:[[NSImage alloc] initByReferencingFile:[[NSBundle mainBundle] pathForImageResource:@"notification_disabled.png"]]];
+
+    }
+}
+
 
 
 @end

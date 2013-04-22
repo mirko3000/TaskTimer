@@ -48,6 +48,7 @@
     
     // Details sheet
     IBOutlet NSPanel *detailsSheet;
+    IBOutlet NSTextField *detailsCommentField;
     
     // Inactivity sheet
     IBOutlet NSPanel *inactivityWindow;
@@ -55,6 +56,8 @@
     IBOutlet NSComboBox *inactivityTaskCombo;
     IBOutlet NSMatrix *inactivityRadioGroup;
     IBOutlet NSButton *inactivityCheckbox;
+    
+    IBOutlet NSToolbarItem *silentButton;
     
     // Data Management
     IBOutlet DataManager *dm;
@@ -75,6 +78,9 @@
 
 // Show timesheet window
 - (IBAction) showTimeSheet:(id)sender;
+
+// Persistence action
+- (IBAction)toggleSilentMode:(id)sender;
 
 // Persistence action
 - (IBAction)saveAction:(id)sender;

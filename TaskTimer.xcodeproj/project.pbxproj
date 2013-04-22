@@ -28,6 +28,9 @@
 		ACE9C3D81721F6D900241BD4 /* SynchroScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE9C3D71721F6D900241BD4 /* SynchroScrollView.m */; };
 		ACE9C3E01722165300241BD4 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE9C3DF1722165300241BD4 /* DataManager.m */; };
 		ACEC381E1718C43400E356A0 /* TimesheetWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACEC381D1718C43400E356A0 /* TimesheetWindow.xib */; };
+		ACF60B941725C41B0038F622 /* timetable.png in Resources */ = {isa = PBXBuildFile; fileRef = ACF60B931725C41B0038F622 /* timetable.png */; };
+		ACF60B961725C6AB0038F622 /* notification.png in Resources */ = {isa = PBXBuildFile; fileRef = ACF60B951725C6AB0038F622 /* notification.png */; };
+		ACF60B981725CBD30038F622 /* notification_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = ACF60B971725CBD30038F622 /* notification_disabled.png */; };
 		ACFBAF5C1713610E00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns in Resources */ = {isa = PBXBuildFile; fileRef = ACFBAF591713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns */; };
 		ACFBAF5D1713610E00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns in Resources */ = {isa = PBXBuildFile; fileRef = ACFBAF5A1713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns */; };
 		ACFBAF5E1713610E00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-start.icns in Resources */ = {isa = PBXBuildFile; fileRef = ACFBAF5B1713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-start.icns */; };
@@ -69,6 +72,9 @@
 		ACE9C3DE1722165300241BD4 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
 		ACE9C3DF1722165300241BD4 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		ACEC381D1718C43400E356A0 /* TimesheetWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimesheetWindow.xib; sourceTree = "<group>"; };
+		ACF60B931725C41B0038F622 /* timetable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timetable.png; sourceTree = "<group>"; };
+		ACF60B951725C6AB0038F622 /* notification.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notification.png; sourceTree = "<group>"; };
+		ACF60B971725CBD30038F622 /* notification_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notification_disabled.png; sourceTree = "<group>"; };
 		ACFBAF591713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns"; path = "../Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns"; sourceTree = "<group>"; };
 		ACFBAF5A1713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns"; path = "../Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns"; sourceTree = "<group>"; };
 		ACFBAF5B1713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-start.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "Oxygen-Icons.org-Oxygen-Actions-media-playback-start.icns"; path = "../Oxygen-Icons.org-Oxygen-Actions-media-playback-start.icns"; sourceTree = "<group>"; };
@@ -154,6 +160,9 @@
 		ACC365EE1711E7E600FBB415 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				ACF60B971725CBD30038F622 /* notification_disabled.png */,
+				ACF60B951725C6AB0038F622 /* notification.png */,
+				ACF60B931725C41B0038F622 /* timetable.png */,
 				ACFBAF591713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns */,
 				ACFBAF5A1713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns */,
 				ACFBAF5B1713610D00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-start.icns */,
@@ -286,6 +295,9 @@
 				ACFBAF5D1713610E00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns in Resources */,
 				ACFBAF5E1713610E00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-start.icns in Resources */,
 				ACEC381E1718C43400E356A0 /* TimesheetWindow.xib in Resources */,
+				ACF60B941725C41B0038F622 /* timetable.png in Resources */,
+				ACF60B961725C6AB0038F622 /* notification.png in Resources */,
+				ACF60B981725CBD30038F622 /* notification_disabled.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
