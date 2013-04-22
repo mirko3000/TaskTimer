@@ -23,6 +23,8 @@
     
     IBOutlet NSDatePicker *fromDatePicker;
     IBOutlet NSDatePicker *toDatePicker;
+    
+    IBOutlet NSButton *hideEmptyRadioButton;
 }
 
 -(IBAction) selectClicked:(id)sender;

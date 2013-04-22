@@ -27,6 +27,7 @@ TimeIntervalFormatter *timeFormatter;
     
     if (self) {
         timeFormatter = [[TimeIntervalFormatter alloc] init];
+    
     }
     
     return self;
@@ -67,7 +68,6 @@ TimeIntervalFormatter *timeFormatter;
     // Set up horizontal (right/left) scrolling synchro
     [footerTableScrollView addSynchronizedScrollView:tableScrollView verticalScroll:NO horizontalScroll:YES];
     [tableScrollView addSynchronizedScrollView:footerTableScrollView verticalScroll:NO horizontalScroll:YES];
-    
     
 }
 
@@ -191,34 +191,54 @@ TimeIntervalFormatter *timeFormatter;
     [dateFormatter setDateFormat:@"dd.MM.YY"];
     
     while (![loopDate isGreaterThan:toDate]) {
+        
+        if ([hideEmptyRadioButton state] == NSOnState) {
+            // Check if values exixt for that date
+            NSNumber *d = [footerDict objectForKey:[dateFormatter stringFromDate:loopDate]];
+            if (d == 0) {
+                loopDate = [loopDate dateByAddingTimeInterval:60*60*24];
+                continue;
+            }
+        }
+
         [self buildTableColumn:[dateFormatter stringFromDate:loopDate]];
         loopDate = [loopDate dateByAddingTimeInterval:60*60*24];
     }
+    
+
     
     
     [table reloadData];
 }
 
 
-//-(void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
-//{
-//    [cell setDrawsBackground:YES];
-//    NSFont *font = [NSFont systemFontOfSize:14.0];
-//    
-//    
-//    if (row==0) {
-//        //[cell setBackgroundColor:[NSColor redColor]];
-//        [cell setFont:font];
-//    }
-//    else if(row==1||row==2) {
-//         //[cell setBackgroundColor:[NSColor blueColor]];
-//    }
-//    else {
-//        //[cell setBackgroundColor:[NSColor yellowColor]];
-//    }
-//}
-
-
+-(void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+    if (tableView == table) {
+    
+    // Get the date of the column
+    NSString *dateString = [tableColumn identifier];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd.MM.yy"];
+    
+    NSDate *date = [dateFormatter dateFromString:dateString ];
+    // setting units we would like to use in future
+    NSDateComponents *comps = [[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:date];
+    
+    if ([comps weekday] == 1 || [comps weekday] == 7) {
+        [cell setDrawsBackground:YES];
+        //NSFont *font = [NSFont systemFontOfSize:14.0];
+         [cell setBackgroundColor:[NSColor lightGrayColor]];
+        //[[tableColumn headerCell] setBackgroundColor:[NSColor lightGrayColor]];
+        [cell setBordered:NO];
+    }
+    else {
+        //[cell setBackgroundColor:[NSColor blueColor]];
+    }
+    }
+    
+}
 
 
 

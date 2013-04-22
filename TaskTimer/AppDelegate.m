@@ -132,7 +132,7 @@ DataManager *dm;
                                                }
                                                else {
                                                    NSTimeInterval interval = -[lastMouseMovement timeIntervalSinceNow];
-                                                   if (interval > 10) {
+                                                   if (interval > 120) {
                                                        NSLog(@"Awake from inaktive: %f", interval);
                                                        [self showInactivityPopup:self];
                                                    }
@@ -152,7 +152,7 @@ DataManager *dm;
                                                }
                                                else {
                                                    NSTimeInterval interval = -[lastMouseMovement timeIntervalSinceNow];
-                                                   if (interval > 10) {
+                                                   if (interval > 120) {
                                                        NSLog(@"Awake from inaktive: %f", interval);
                                                        [self showInactivityPopup:self];
                                                    }
