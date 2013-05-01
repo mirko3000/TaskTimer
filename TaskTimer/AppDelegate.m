@@ -11,6 +11,7 @@
 #import "ScrollingTextView.h"
 #import "FBScrollingTextView.h"
 #import "DataManager.h"
+#import "TimeController.h"
 
 @implementation AppDelegate
 
@@ -155,7 +156,7 @@ bool silent = false;
                                                }
                                                else {
                                                    NSTimeInterval interval = -[lastMouseMovement timeIntervalSinceNow];
-                                                   if (interval > 10) {
+                                                   if (interval > 120) {
                                                        NSLog(@"Awake from inaktive: %f", interval);
                                                        [self showInactivityPopup:self];
                                                    }
@@ -792,6 +793,17 @@ bool silent = false;
         [silentButton setImage:[[NSImage alloc] initByReferencingFile:[[NSBundle mainBundle] pathForImageResource:@"notification_disabled.png"]]];
 
     }
+}
+
+
+-(IBAction)testAction:(id)sender {
+    if (!timeController) {
+        timeController = [[TimeController alloc] initWithWindowNibName:@"TimeSheet"];
+    }
+    
+    [timeController setData:[timeItemsArrayController arrangedObjects]];
+    [timeController showWindow:self];
+    
 }
 
 

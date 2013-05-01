@@ -13,4 +13,8 @@
 @synthesize taskName;
 @synthesize timeDict;
 
+- (NSString *)description {
+    return [NSString stringWithFormat: @"TaskResult: Name=%@ Time=%@", taskName, timeDict];
+}
+
 @end

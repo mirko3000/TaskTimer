@@ -204,10 +204,7 @@ TimeIntervalFormatter *timeFormatter;
         [self buildTableColumn:[dateFormatter stringFromDate:loopDate]];
         loopDate = [loopDate dateByAddingTimeInterval:60*60*24];
     }
-    
 
-    
-    
     [table reloadData];
 }
 

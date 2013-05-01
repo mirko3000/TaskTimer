@@ -11,10 +11,13 @@
 @class ScrollingTextView;
 @class FBScrollingTextView;
 @class DataManager;
+@class TimeController;
+
 
 @interface AppDelegate : NSObject <NSApplicationDelegate> {
     
     TimeSheetController *timeSheetController;
+    TimeController *timeController;
     
     // TaskBar-Items
     IBOutlet NSMenu *statusMenu;
@@ -32,6 +35,8 @@
     // Toolbar Buttons
     IBOutlet NSToolbarItem *startButton;
     IBOutlet NSToolbarItem *stopButton;
+    IBOutlet NSToolbarItem *silentButton;
+    IBOutlet NSToolbarItem *testButton;
     
     // Tables
     IBOutlet NSTableView *tasksTableView;
@@ -57,7 +62,7 @@
     IBOutlet NSMatrix *inactivityRadioGroup;
     IBOutlet NSButton *inactivityCheckbox;
     
-    IBOutlet NSToolbarItem *silentButton;
+
     
     // Data Management
     IBOutlet DataManager *dm;
@@ -84,6 +89,8 @@
 
 // Persistence action
 - (IBAction)saveAction:(id)sender;
+
+-(IBAction)testAction:(id)sender;
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSPopover *popover;
