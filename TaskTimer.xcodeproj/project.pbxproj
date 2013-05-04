@@ -18,6 +18,10 @@
 		AC9ABAAE171ACFC5005C7E63 /* TimeSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9ABAAD171ACFC5005C7E63 /* TimeSheetController.m */; };
 		ACBF3FC6173081A700CA6457 /* MSZLinkedView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACBF3FC5173081A700CA6457 /* MSZLinkedView.m */; };
 		ACBF3FC81730822C00CA6457 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBF3FC71730822C00CA6457 /* QuartzCore.framework */; };
+		ACBF3FCA173470BF00CA6457 /* WeekView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACBF3FC9173470BF00CA6457 /* WeekView.xib */; };
+		ACBF3FCD1734738F00CA6457 /* WeekViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACBF3FCC1734738F00CA6457 /* WeekViewController.m */; };
+		ACBF3FCF17347E8800CA6457 /* MonthView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACBF3FCE17347E8800CA6457 /* MonthView.xib */; };
+		ACBF3FD21734802F00CA6457 /* MonthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACBF3FD11734802F00CA6457 /* MonthViewController.m */; };
 		ACC365B81711970A00FBB415 /* TaskTimer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ACC365B61711970A00FBB415 /* TaskTimer.xcdatamodeld */; };
 		ACC365E71711B70900FBB415 /* TimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC365E61711B70900FBB415 /* TimeIntervalFormatter.m */; };
 		ACC365F31711E7E600FBB415 /* Pause.icns in Resources */ = {isa = PBXBuildFile; fileRef = ACC365EF1711E7E600FBB415 /* Pause.icns */; };
@@ -63,6 +67,12 @@
 		ACBF3FC4173081A700CA6457 /* MSZLinkedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSZLinkedView.h; sourceTree = "<group>"; };
 		ACBF3FC5173081A700CA6457 /* MSZLinkedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSZLinkedView.m; sourceTree = "<group>"; };
 		ACBF3FC71730822C00CA6457 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		ACBF3FC9173470BF00CA6457 /* WeekView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeekView.xib; sourceTree = "<group>"; };
+		ACBF3FCB1734738F00CA6457 /* WeekViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeekViewController.h; sourceTree = "<group>"; };
+		ACBF3FCC1734738F00CA6457 /* WeekViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeekViewController.m; sourceTree = "<group>"; };
+		ACBF3FCE17347E8800CA6457 /* MonthView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonthView.xib; sourceTree = "<group>"; };
+		ACBF3FD01734802F00CA6457 /* MonthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonthViewController.h; sourceTree = "<group>"; };
+		ACBF3FD11734802F00CA6457 /* MonthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonthViewController.m; sourceTree = "<group>"; };
 		ACC365B71711970A00FBB415 /* TaskTimer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TaskTimer.xcdatamodel; sourceTree = "<group>"; };
 		ACC365E51711B70900FBB415 /* TimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeIntervalFormatter.h; sourceTree = "<group>"; };
 		ACC365E61711B70900FBB415 /* TimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeIntervalFormatter.m; sourceTree = "<group>"; };
@@ -113,6 +123,12 @@
 				AC4B7EB11726FB22007DC96C /* TimeSheet.xib */,
 				AC4B7EB31726FCCA007DC96C /* TimeController.h */,
 				AC4B7EB41726FCCA007DC96C /* TimeController.m */,
+				ACBF3FC9173470BF00CA6457 /* WeekView.xib */,
+				ACBF3FCB1734738F00CA6457 /* WeekViewController.h */,
+				ACBF3FCC1734738F00CA6457 /* WeekViewController.m */,
+				ACBF3FCE17347E8800CA6457 /* MonthView.xib */,
+				ACBF3FD01734802F00CA6457 /* MonthViewController.h */,
+				ACBF3FD11734802F00CA6457 /* MonthViewController.m */,
 			);
 			name = timesheet2;
 			sourceTree = "<group>";
@@ -324,6 +340,8 @@
 				ACF60B961725C6AB0038F622 /* notification.png in Resources */,
 				ACF60B981725CBD30038F622 /* notification_disabled.png in Resources */,
 				AC4B7EB21726FB22007DC96C /* TimeSheet.xib in Resources */,
+				ACBF3FCA173470BF00CA6457 /* WeekView.xib in Resources */,
+				ACBF3FCF17347E8800CA6457 /* MonthView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +364,8 @@
 				ACE9C3E01722165300241BD4 /* DataManager.m in Sources */,
 				AC4B7EB51726FCCA007DC96C /* TimeController.m in Sources */,
 				ACBF3FC6173081A700CA6457 /* MSZLinkedView.m in Sources */,
+				ACBF3FCD1734738F00CA6457 /* WeekViewController.m in Sources */,
+				ACBF3FD21734802F00CA6457 /* MonthViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

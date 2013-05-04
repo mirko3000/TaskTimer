@@ -22,7 +22,11 @@
 }
 
 -(void) updateTableHeaders;
+-(void) updateLabel;
 
+extern int const MONTH;
+extern int const WEEK;
+extern int const DAY;
 
 @property(retain)MSZLinkedView *previousView, *nextView;
 @property NSTextField *label;
@@ -30,5 +34,6 @@
 @property (retain) NSDate *endDate;
 @property NSTableView *mainTable;
 @property NSTableView *footerTable;
+@property int dateInterval;
 
 @end

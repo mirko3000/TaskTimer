@@ -9,10 +9,12 @@
 #import "TimeController.h"
 #import "MSZLinkedView.h"
 #import "TaskResult.h"
+#import "WeekViewController.h"
+#import "MonthViewController.h"
 
 @implementation TimeController
 
-@synthesize currentView, view;
+@synthesize currentWeekView, weekView, currentMonthView, monthView;
 
 // Calendar stuff
 NSCalendar *cal;
@@ -22,6 +24,14 @@ NSDateFormatter *dateFormatter;
 NSMutableDictionary *dataDict;
 NSMutableDictionary *footerDict;
 NSMutableArray *dataSet;
+
+WeekViewController *weekController;
+WeekViewController *weekControllerNext;
+WeekViewController *weekControllerPrevious;
+
+MonthViewController *monthController;
+MonthViewController *monthControllerNext;
+MonthViewController *monthControllerPrevious;
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -34,10 +44,37 @@ NSMutableArray *dataSet;
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"dd.MM.yy"];
     
+    // Initialize the three weeks views
+    weekController = [[WeekViewController alloc] initWithNibName:@"WeekView" bundle:nil];
+    currentWeekView = (MSZLinkedView*)[weekController view];
+    weekControllerNext = [[WeekViewController alloc] initWithNibName:@"WeekView" bundle:nil];
+    [currentWeekView setNextView:(MSZLinkedView*)[weekControllerNext view]];
+    weekControllerPrevious = [[WeekViewController alloc] initWithNibName:@"WeekView" bundle:nil];
+    [currentWeekView setPreviousView:(MSZLinkedView*)[weekControllerPrevious view]];
+    
+    // Set type
+    [currentWeekView setDateInterval:WEEK];
+    [[currentWeekView nextView] setDateInterval:WEEK];
+    [[currentWeekView previousView] setDateInterval:WEEK];
+    
+    
+    // Initialize the three monts views
+    monthController = [[MonthViewController alloc] initWithNibName:@"MonthView" bundle:nil];
+    currentMonthView = (MSZLinkedView*)[monthController view];
+    monthControllerNext = [[MonthViewController alloc] initWithNibName:@"MonthView" bundle:nil];
+    [currentMonthView setNextView:(MSZLinkedView*)[monthControllerNext view]];
+    monthControllerPrevious = [[MonthViewController alloc] initWithNibName:@"MonthView" bundle:nil];
+    [currentMonthView setPreviousView:(MSZLinkedView*)[monthControllerPrevious view]];
+    
+    // Set type
+    [currentMonthView setDateInterval:MONTH];
+    [[currentMonthView nextView] setDateInterval:MONTH];
+    [[currentMonthView previousView] setDateInterval:MONTH];
+
+    //[window setContentView:[controller view]];
+    
     return self;
 }
-
-
 
 
 -(void)windowDidLoad {
@@ -46,17 +83,50 @@ NSMutableArray *dataSet;
     
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     
-    [view setWantsLayer:YES];
-    [view addSubview:[self currentView]];
+    // Week Animation
+    [weekView setWantsLayer:YES];
+    [weekView addSubview:[self currentWeekView]];
     
     transition = [CATransition animation];
     [transition setType:kCATransitionPush];
-    [transition setSubtype:kCATransitionFromLeft];
+    [transition setSubtype:kCATransitionFromRight];
     
     NSDictionary *ani = [NSDictionary dictionaryWithObject:transition forKey:@"subviews"];
-    [view setAnimations:ani];
+    [weekView setAnimations:ani];
     
-    [view setStartDate:[[NSDate alloc] init]];
+    [weekView setStartDate:[[NSDate alloc] init]];
+    [weekView setDateInterval:WEEK];
+    
+    // Month Animation
+    [monthView setWantsLayer:YES];
+    [monthView addSubview:[self currentMonthView]];
+    
+    [monthView setAnimations:ani];
+    
+    NSDate *today = [[NSDate alloc] init];
+    
+    // calculate first day
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *comp = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:today];
+    [comp setDay:1];
+    NSDate *firstDayOfMonthDate = [cal dateFromComponents:comp];
+    
+    // for the last day first add one month, then substract one day
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    [comps setMonth:1];
+    NSDate *beginningOfNextMonth = [cal dateByAddingComponents:comps toDate:today options:0];
+    
+    NSDate *lastDayOfMonth = [beginningOfNextMonth dateByAddingTimeInterval:-(24*60)];
+    [monthView setStartDate:firstDayOfMonthDate];
+    [monthView setEndDate:lastDayOfMonth];
+    [monthView setDateInterval:MONTH];
+    
+    
+    // Update initial content
+    [currentWeekView updateTableHeaders];
+    [currentMonthView updateTableHeaders];
+    [currentWeekView updateLabel];
+    [currentMonthView updateLabel];
 }
 
 
@@ -161,142 +231,196 @@ NSMutableArray *dataSet;
         NSDictionary *dict = [[dataDict objectForKey:key] copy];
         [res setTimeDict:dict];
         [dataSet addObject:res];
-        NSLog(@"TimeDict: %@", res);
+        //NSLog(@"TimeDict: %@", res);
     }
+    
+    // set data for the week view controllers
+    [weekController setData:dataSet withFooter:footerDict];
+    [weekControllerNext setData:dataSet withFooter:footerDict];
+    [weekControllerPrevious setData:dataSet withFooter:footerDict];
+    
+    // set data for the month view controllers
+    [monthController setData:dataSet withFooter:footerDict];
+    [monthControllerNext setData:dataSet withFooter:footerDict];
+    [monthControllerPrevious setData:dataSet withFooter:footerDict];
 }
 
 
--(void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+- (void)replaceView:(MSZLinkedView*)oldView withView:(MSZLinkedView*)newView fromMasterView:(MSZLinkedView*) masterView
 {
-    if (tableView == [currentView mainTable]) {
-        
-        // Get the date of the column
-        NSString *dateString = [tableColumn identifier];
-        
-        NSDate *date = [dateFormatter dateFromString:dateString ];
-        // setting units we would like to use in future
-        NSDateComponents *comps = [[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:date];
-        
-        if ([comps weekday] == 1 || [comps weekday] == 7) {
-            [cell setDrawsBackground:YES];
-            //NSFont *font = [NSFont systemFontOfSize:14.0];
-            [cell setBackgroundColor:[NSColor lightGrayColor]];
-            //[[tableColumn headerCell] setBackgroundColor:[NSColor lightGrayColor]];
-            [cell setBordered:NO];
-        }
-        else {
-            //[cell setBackgroundColor:[NSColor blueColor]];
-        }
+    if (!oldView) {
+        oldView = newView;
+        return;
     }
+    
+    [[masterView animator] replaceSubview:oldView with:newView];
+    oldView = newView;
+    
+    // Update the date label
+    //[[oldView label]  setStringValue:[[[dateFormatter stringFromDate:[oldView startDate]] stringByAppendingString:@" - "] stringByAppendingString:[dateFormatter stringFromDate:[oldView endDate]]]];
+    [oldView updateLabel];
+    
+    [oldView updateTableHeaders];
     
 }
-
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
-    if (aTableView == [currentView mainTable]) {
-        return [dataSet count];
-    }
-    else {
-        return 1;
-    }
-}
-
-
-- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
-    
-    TaskResult *dict = [dataSet objectAtIndex:rowIndex];
-    
-    // Data table
-    if (aTableView == [currentView mainTable]) {
-        if ([[aTableColumn identifier] isEqualToString:@"Task"]) {
-            return [dict taskName];
-        }
-        else {
-            return [[dict timeDict] objectForKey:[aTableColumn identifier]];
-        }
-        
-    }
-    // Footer Header table
-    else  {
-        if ([[aTableColumn identifier] isEqualToString:@"Task"]) {
-            return @"SUM";
-        }
-        else {
-            return [footerDict objectForKey:[aTableColumn identifier]];
-        }
-    }
-    
-    return @"<empty>";
-}
-
 
 
 - (void)setNewCurrentView:(MSZLinkedView*)newView
 {
-    if (!currentView) {
-        currentView = newView;
+    if (!currentWeekView) {
+        currentWeekView = newView;
         return;
     }
     //NSView *contentView = [[self window] contentView];
-    [[view animator] replaceSubview:currentView with:newView];
+    [[weekView animator] replaceSubview:currentWeekView with:newView];
     
     //[[contentView animator] replaceSubview:currentView with:newView];
-    currentView = newView;
+    currentWeekView = newView;
     
-    [[currentView label]  setStringValue:[[[dateFormatter stringFromDate:[currentView startDate]] stringByAppendingString:@" - "] stringByAppendingString:[dateFormatter stringFromDate:[currentView endDate]]]];
+    [[currentWeekView label]  setStringValue:[[[dateFormatter stringFromDate:[currentWeekView startDate]] stringByAppendingString:@" - "] stringByAppendingString:[dateFormatter stringFromDate:[currentWeekView endDate]]]];
 
-    [currentView updateTableHeaders];
-    
+    [currentWeekView updateTableHeaders];
 }
+
 
 
 - (IBAction)nextView:(id)sender;
 {
-    
+    NSLog(@"Next");
     // Transition from right
     [transition setSubtype:kCATransitionFromRight];
     
-    MSZLinkedView *curView = [self currentView];
-    MSZLinkedView *nexView = [curView nextView];
-    MSZLinkedView *prevView = [curView previousView];
+    // Check which view is active (month, week or day)
+    NSTabViewItem *tabViewItemX = [tabView selectedTabViewItem];
+    if (tabViewItemX == monthViewItem) {
+   
+        MSZLinkedView *curView = [self currentMonthView];
+        MSZLinkedView *nexView = [curView nextView];
+        MSZLinkedView *prevView = [curView previousView];
+        
+        // Calculate new dates
+        NSDate *currentStartDate = [[curView startDate] copy];
+
+        NSDateComponents* dateComponents = [[NSDateComponents alloc]init];
+        [dateComponents setMonth:1];
+        NSCalendar* calendar = [NSCalendar currentCalendar];
+        NSDate* newStartDate = [calendar dateByAddingComponents:dateComponents toDate:currentStartDate options:0];
+
+        // for the last day first add one month, then substract one day
+        NSDate *beginningOfNextMonth = [calendar dateByAddingComponents:dateComponents toDate:newStartDate options:0];
+        NSDate *lastDayOfMonth = [beginningOfNextMonth dateByAddingTimeInterval:-(24*60)];
+        
+        [nexView setStartDate:newStartDate];
+        [nexView setEndDate:lastDayOfMonth];
+        
+        //[self setNewCurrentView:nexView];
+        [self replaceView:curView withView:nexView fromMasterView:monthView];
+        
+        //update new next and previous
+        [nexView setNextView:prevView];
+        [nexView setPreviousView:curView];
+        
+        currentMonthView = nexView;
+        
+    }
     
-    // Calculate new dates
-    NSDate *currentStartDate = [[curView startDate] copy];
-    NSDate *currentEndDate = [[curView endDate] copy];
-    currentStartDate = [currentStartDate dateByAddingTimeInterval:60*60*24*7];
-    currentEndDate = [currentEndDate dateByAddingTimeInterval:60*60*24*7];
-    [nexView setStartDate:currentStartDate];
-    [nexView setEndDate:currentEndDate];
-    
-    [self setNewCurrentView:nexView];
-    
-    //update new next and previous
-    [nexView setNextView:prevView];
-    [nexView setPreviousView:curView];
+    else if (tabViewItemX == weekViewItem) {
+        
+        MSZLinkedView *curView = [self currentWeekView];
+        MSZLinkedView *nexView = [curView nextView];
+        MSZLinkedView *prevView = [curView previousView];
+        
+        // Calculate new dates
+        NSDate *currentStartDate = [[curView startDate] copy];
+        NSDate *currentEndDate = [[curView endDate] copy];
+        currentStartDate = [currentStartDate dateByAddingTimeInterval:60*60*24*7];
+        currentEndDate = [currentEndDate dateByAddingTimeInterval:60*60*24*7];
+        [nexView setStartDate:currentStartDate];
+        [nexView setEndDate:currentEndDate];
+        
+        //[self setNewCurrentView:nexView];
+        [self replaceView:curView withView:nexView fromMasterView:weekView];
+        
+        //update new next and previous
+        [nexView setNextView:prevView];
+        [nexView setPreviousView:curView];
+        
+        currentWeekView = nexView;
+    }
+    else {
+        // TODO
+    }
     
 }
 
 
 - (IBAction)previousView:(id)sender;
 {
+    NSLog(@"Previous");
     [transition setSubtype:kCATransitionFromLeft];
     
-    MSZLinkedView *curView = [self currentView];
-    MSZLinkedView *nexView = [curView nextView];
-    MSZLinkedView *prevView = [curView previousView];
+    // Check which view is active (month, week or day)
+    NSTabViewItem *tabViewItemX = [tabView selectedTabViewItem];
+    if (tabViewItemX == monthViewItem) {
+        MSZLinkedView *curView = [self currentMonthView];
+        MSZLinkedView *nexView = [curView nextView];
+        MSZLinkedView *prevView = [curView previousView];
+        
+        // Calculate new dates
+        NSDate *currentStartDate = [[curView startDate] copy];
+        
+        NSDateComponents* dateComponents = [[NSDateComponents alloc]init];
+        [dateComponents setMonth:-1];
+        NSCalendar* calendar = [NSCalendar currentCalendar];
+        NSDate* newStartDate = [calendar dateByAddingComponents:dateComponents toDate:currentStartDate options:0];
+        
+        // for the last day first add one month, then substract one day
+        NSDate *beginningOfNextMonth = [calendar dateByAddingComponents:dateComponents toDate:newStartDate options:0];
+        NSDate *lastDayOfMonth = [beginningOfNextMonth dateByAddingTimeInterval:-(24*60)];
+        
+        [prevView setStartDate:newStartDate];
+        [prevView setEndDate:lastDayOfMonth];
+        
+        //[self setNewCurrentView:prevView];
+        [self replaceView:curView withView:prevView fromMasterView:monthView];
+        
+        //update new next and previous
+        [prevView setNextView:curView];
+        [prevView setPreviousView:nexView];
+        
+        currentMonthView = prevView;
+        
+    }
     
-    // Calculate new dates
-    NSDate *currentStartDate = [[curView startDate] copy];
-    NSDate *currentEndDate = [[curView endDate] copy];
-    currentStartDate = [currentStartDate dateByAddingTimeInterval:60*60*24*7*-1];
-    currentEndDate = [currentEndDate dateByAddingTimeInterval:60*60*24*7*-1];
-    [prevView setStartDate:currentStartDate];
-    [prevView setEndDate:currentEndDate];
+    else if (tabViewItemX == weekViewItem) {
+        MSZLinkedView *curView = [self currentWeekView];
+        MSZLinkedView *nexView = [curView nextView];
+        MSZLinkedView *prevView = [curView previousView];
+        
+        // Calculate new dates
+        NSDate *currentStartDate = [[curView startDate] copy];
+        NSDate *currentEndDate = [[curView endDate] copy];
+        currentStartDate = [currentStartDate dateByAddingTimeInterval:60*60*24*7*-1];
+        currentEndDate = [currentEndDate dateByAddingTimeInterval:60*60*24*7*-1];
+        [prevView setStartDate:currentStartDate];
+        [prevView setEndDate:currentEndDate];
+        
+        //[self setNewCurrentView:prevView];
+        [self replaceView:curView withView:prevView fromMasterView:weekView];
+        
+        //update new next and previous
+        [prevView setNextView:curView];
+        [prevView setPreviousView:nexView];
+        
+        currentWeekView = prevView;
+    }
     
-    [self setNewCurrentView:prevView];
+    else {
+        //TODO
+    }
     
-    //update new next and previous
-    [prevView setNextView:curView];
-    [prevView setPreviousView:nexView];
+    
+
 }
 
 

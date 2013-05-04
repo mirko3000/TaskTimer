@@ -11,9 +11,14 @@
 
 @implementation MSZLinkedView
 
-@synthesize nextView, previousView, label, mainTable, footerTable, startDate, endDate;
+@synthesize nextView, previousView, label, mainTable, footerTable, startDate, endDate, dateInterval;
 
-NSDateFormatter *dateFormatter;
+const int MONTH = 1;
+const int WEEK = 2;
+const int DAY = 3;
+
+NSDateFormatter *weekDateFormatter;
+NSDateFormatter *monthDateFormatter;
 TimeIntervalFormatter *timeFormatter;
 
 - (void)awakeFromNib
@@ -21,11 +26,8 @@ TimeIntervalFormatter *timeFormatter;
     [self setWantsLayer:YES];
     
     timeFormatter = [[TimeIntervalFormatter alloc] init];
-
-    
     startDate = [[NSDate alloc] init];
     
-
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDateComponents *comps = [cal components:NSYearCalendarUnit|NSMonthCalendarUnit|NSWeekCalendarUnit|NSWeekdayCalendarUnit fromDate:startDate];
     
@@ -37,12 +39,31 @@ TimeIntervalFormatter *timeFormatter;
     [comps setWeekday:1];
     endDate = [cal dateFromComponents:comps];
     
-    dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd.MM.yy"];
+    weekDateFormatter = [[NSDateFormatter alloc] init];
+    [weekDateFormatter setDateFormat:@"dd.MM.yy"];
     
-    [label setStringValue:[[[dateFormatter stringFromDate:startDate] stringByAppendingString:@" - "] stringByAppendingString:[dateFormatter stringFromDate:endDate]]];
+    monthDateFormatter = [[NSDateFormatter alloc] init];
+    [monthDateFormatter setDateFormat:@"MM.yyyy"];
     
-    [self updateTableHeaders];
+    //[label setStringValue:[[[weekDateFormatter stringFromDate:startDate] stringByAppendingString:@" - "] stringByAppendingString:[weekDateFormatter stringFromDate:endDate]]];
+    
+    //[self updateTableHeaders];
+}
+
+
+-(void)updateLabel {
+    
+    if (dateInterval == MONTH) {
+        [label setStringValue:[monthDateFormatter stringFromDate:startDate]];
+    }
+    else if (dateInterval == WEEK) {
+        [label setStringValue:[[[weekDateFormatter stringFromDate:startDate] stringByAppendingString:@" - "] stringByAppendingString:[weekDateFormatter stringFromDate:endDate]]];
+        
+    }
+    else {
+        //TODO
+    }
+    
 }
 
 
@@ -50,26 +71,49 @@ TimeIntervalFormatter *timeFormatter;
 // of the currently selected timespan
 -(void) updateTableHeaders {
     
-    // First remove all date columns (except first task column)
-    while([[mainTable tableColumns] count] > 1) {
-        [mainTable removeTableColumn:[[mainTable tableColumns] lastObject]];
-    }
-    while([[footerTable tableColumns] count] > 1) {
-        [footerTable removeTableColumn:[[footerTable tableColumns] lastObject]];
-    }
-
-    // Now create column for each day between start and end
-    
-    NSDate *loopDate = [startDate copy];
-    
-    while (![loopDate isGreaterThan:endDate]) {
+    if (dateInterval == MONTH) {
+        // First remove all date columns (except first task column)
+        while([[mainTable tableColumns] count] > 1) {
+            [mainTable removeTableColumn:[[mainTable tableColumns] lastObject]];
+        }
+        while([[footerTable tableColumns] count] > 1) {
+            [footerTable removeTableColumn:[[footerTable tableColumns] lastObject]];
+        }
         
-        [self buildTableColumn:[dateFormatter stringFromDate:loopDate]];
-        loopDate = [loopDate dateByAddingTimeInterval:60*60*24];
+        // Now add a single Month column
+        [self buildTableColumn:[monthDateFormatter stringFromDate:startDate]];
+        
+    }
+    else if (dateInterval == WEEK) {
+    
+    
+        // First remove all date columns (except first task column)
+        while([[mainTable tableColumns] count] > 1) {
+            [mainTable removeTableColumn:[[mainTable tableColumns] lastObject]];
+        }
+        while([[footerTable tableColumns] count] > 1) {
+            [footerTable removeTableColumn:[[footerTable tableColumns] lastObject]];
+        }
+
+        // Now create column for each day between start and end
+        
+        NSDate *loopDate = [startDate copy];
+        
+        while (![loopDate isGreaterThan:endDate]) {
+            
+            [self buildTableColumn:[weekDateFormatter stringFromDate:loopDate]];
+            loopDate = [loopDate dateByAddingTimeInterval:60*60*24];
+        }
+    
+    }
+    else {
+        //TODO
     }
     
     [mainTable reloadData];
+    [footerTable reloadData];
 }
+
 
 
 - (void) buildTableColumn: (NSString *) name;
@@ -87,7 +131,15 @@ TimeIntervalFormatter *timeFormatter;
     //[newColumn setHeaderCell:headerCell];
     
 	[newColumn setDataCell: textCell];
-    [newColumn setWidth:60.0];
+    if (dateInterval == WEEK) {
+        [newColumn setWidth:60.0];
+    }
+    else if (dateInterval == MONTH) {
+        [newColumn setWidth:120.0];
+    }
+    else {
+        [newColumn setWidth:120.0];
+    }
     
     [textCell setFormatter:timeFormatter];
     

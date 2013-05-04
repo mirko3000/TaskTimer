@@ -13,21 +13,28 @@
 
 @interface TimeController : NSWindowController <NSTableViewDataSource, NSApplicationDelegate, NSTableViewDelegate> {
     
-    IBOutlet NSTabViewItem *monthView;
-    IBOutlet NSTabViewItem *weekView;
-    IBOutlet NSTabViewItem *dayView;
+    IBOutlet NSTabView *tabView;
+    
+    IBOutlet NSTabViewItem *monthViewItem;
+    IBOutlet NSTabViewItem *weekViewItem;
+    IBOutlet NSTabViewItem *dayViewItem;
     
     IBOutlet NSButton *nextButton;
     IBOutlet NSButton *previousButton;
     
-    IBOutlet MSZLinkedView *currentView;
-    IBOutlet MSZLinkedView *view;
+    IBOutlet MSZLinkedView *currentWeekView;
+    IBOutlet MSZLinkedView *weekView;
+    
+    IBOutlet MSZLinkedView *currentMonthView;
+    IBOutlet MSZLinkedView *monthView;
     
     CATransition *transition;
 }
 
-@property(retain)MSZLinkedView *currentView;
-@property(retain)MSZLinkedView *view;
+@property(retain)MSZLinkedView *currentWeekView;
+@property(retain)MSZLinkedView *weekView;
+@property(retain)MSZLinkedView *currentMonthView;
+@property(retain)MSZLinkedView *monthView;
 
 
 -(IBAction)nextView:(id)sender;
