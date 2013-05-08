@@ -11,6 +11,7 @@
 #import "TaskResult.h"
 #import "WeekViewController.h"
 #import "MonthViewController.h"
+#import "TimeDataManager.h"
 
 @implementation TimeController
 
@@ -32,6 +33,9 @@ WeekViewController *weekControllerPrevious;
 MonthViewController *monthController;
 MonthViewController *monthControllerNext;
 MonthViewController *monthControllerPrevious;
+
+TimeDataManager *dataMgr;
+
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -72,6 +76,8 @@ MonthViewController *monthControllerPrevious;
     [[currentMonthView previousView] setDateInterval:MONTH];
 
     //[window setContentView:[controller view]];
+    
+    dataMgr = [[TimeDataManager alloc] init];
     
     return self;
 }
@@ -139,6 +145,8 @@ MonthViewController *monthControllerPrevious;
     
     // For each day calculate the sum of each task and the total sum of the day
     for (NSManagedObject *time in timeArray ) {
+        
+        [dataMgr addTimeEntry:time];
         
         //NSManagedObject *task = [time valueForKey:@"task"];
         //NSString *taskName = [task valueForKey:@"name"];
@@ -235,14 +243,18 @@ MonthViewController *monthControllerPrevious;
     }
     
     // set data for the week view controllers
-    [weekController setData:dataSet withFooter:footerDict];
-    [weekControllerNext setData:dataSet withFooter:footerDict];
-    [weekControllerPrevious setData:dataSet withFooter:footerDict];
+    //[weekController setData:dataSet withFooter:footerDict];
+    //[weekControllerNext setData:dataSet withFooter:footerDict];
+    //[weekControllerPrevious setData:dataSet withFooter:footerDict];
+    
+    [weekController setData:[dataMgr getWeekData2] withFooter:[dataMgr getWeekSumData]];
+    [weekControllerNext setData:[dataMgr getWeekData2] withFooter:[dataMgr getWeekSumData]];
+    [weekControllerPrevious setData:[dataMgr getWeekData2] withFooter:[dataMgr getWeekSumData]];
     
     // set data for the month view controllers
-    [monthController setData:dataSet withFooter:footerDict];
-    [monthControllerNext setData:dataSet withFooter:footerDict];
-    [monthControllerPrevious setData:dataSet withFooter:footerDict];
+    [monthController setData:[dataMgr getMonthData] withFooter:[dataMgr getMonthSumData]];
+    [monthControllerNext setData:[dataMgr getMonthData] withFooter:[dataMgr getMonthSumData]];
+    [monthControllerPrevious setData:[dataMgr getMonthData] withFooter:[dataMgr getMonthSumData]];
 }
 
 
