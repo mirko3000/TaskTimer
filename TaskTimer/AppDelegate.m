@@ -25,6 +25,9 @@ NSTimer* animTimer;
 NSDate* startDate;
 NSManagedObject *currentTimingTask;
 
+// For editing the timings
+NSManagedObject *currentEditObject;
+
 // Variable to track idle time
 NSDate* lastMouseMovement;
 NSDate* lastMouseMovementPopup;
@@ -754,6 +757,8 @@ bool silent = false;
        didEndSelector:nil
           contextInfo:nil];
     
+    currentEditObject = [timeItemsArrayController selection];
+    
     [detailsSheet makeFirstResponder:detailsCommentField];
     
 }
@@ -762,6 +767,17 @@ bool silent = false;
 -(IBAction)endTheSheet:(id)sender {
     [NSApp endSheet:detailsSheet];
     [detailsSheet orderOut:sender];
+    
+    // Recalculate the data of the edited entry
+    NSManagedObject *task = [currentEditObject valueForKey:@"task"];
+    
+    // First update the timing duration
+    NSDate *start = (NSDate*)[currentEditObject valueForKey:@"start"];
+    NSDate *end = (NSDate*)[currentEditObject valueForKey:@"end"];
+    NSTimeInterval interval = [end timeIntervalSinceDate:start];
+    [currentEditObject setValue:[[NSNumber alloc] initWithDouble:interval] forKey:@"duration"];
+    
+    [self recalculateTotalTime:task:currentEditObject];
     
     // Save data
     [self saveAction:self];
