@@ -26,8 +26,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "796"
          endingLineNumber = "796"
-         landmarkName = "-closeInactivityPopup:"
-         landmarkType = "5">
+         landmarkName = "@implementation AppDelegate"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -38,9 +38,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "824"
-         endingLineNumber = "824"
-         landmarkName = "-closeInactivityPopup:"
-         landmarkType = "5">
+         endingLineNumber = "824">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -51,9 +49,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "825"
-         endingLineNumber = "825"
-         landmarkName = "-closeInactivityPopup:"
-         landmarkType = "5">
+         endingLineNumber = "825">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
