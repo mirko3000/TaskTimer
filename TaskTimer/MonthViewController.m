@@ -17,9 +17,9 @@ NSCalendar *cal;
 NSDateFormatter *dateFormatter;
 
 // Data for the tables
-NSMutableDictionary *dataDict;
-NSMutableDictionary *footerDict;
-NSMutableArray *dataSet;
+NSMutableDictionary *monthDataDict;
+NSMutableDictionary *monthFooterDict;
+NSMutableArray *monthDataSet;
 
 @synthesize linkedView;
 
@@ -36,8 +36,8 @@ NSMutableArray *dataSet;
 
 
 -(void) setData:(NSMutableArray*)timeArray withFooter:(NSMutableDictionary *)footerArray {
-    dataSet = timeArray;
-    footerDict = footerArray;
+    monthDataSet = timeArray;
+    monthFooterDict = footerArray;
     [[[self getLinkedViewLazy] mainTable] reloadData];
     [[[self getLinkedViewLazy] footerTable] reloadData];
 }
@@ -71,7 +71,7 @@ NSMutableArray *dataSet;
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
     if (aTableView == [[self getLinkedViewLazy] mainTable]) {
-        return [dataSet count];
+        return [monthDataSet count];
     }
     else {
         return 1;
@@ -81,7 +81,7 @@ NSMutableArray *dataSet;
 
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
     
-    TaskResult *dict = [dataSet objectAtIndex:rowIndex];
+    TaskResult *dict = [monthDataSet objectAtIndex:rowIndex];
     
     // Data table
     if (aTableView == [[self getLinkedViewLazy] mainTable]) {
@@ -99,7 +99,7 @@ NSMutableArray *dataSet;
             return @"SUM";
         }
         else {
-            return [footerDict objectForKey:[aTableColumn identifier]];
+            return [monthFooterDict objectForKey:[aTableColumn identifier]];
         }
     }
     

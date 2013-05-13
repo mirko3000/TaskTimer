@@ -32,11 +32,15 @@ NSManagedObject *currentEditObject;
 NSDate* lastMouseMovement;
 NSDate* lastMouseMovementPopup;
 
+NSWindow* settingsSheet;
+
 // Data Manager
 DataManager *dm;
 
 // Silent mode flag
 bool silent = false;
+
+NSTimer* popoverTimer;
 
 
 - (id)init {
@@ -245,8 +249,6 @@ bool silent = false;
         }
     }
     
-    
-    
     [NSEvent removeMonitor:self];
     
     return NSTerminateNow;
@@ -279,9 +281,6 @@ bool silent = false;
 
 
 
--(void)showStatusBarPopover:(id)sender{
-    [[self popover] showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
-}
 
 
 
@@ -427,12 +426,7 @@ bool silent = false;
     
     currentTimingTask = [[taskItemsArrayController selectedObjects] objectAtIndex:0];
     
-    // Update popover and show it
-    [popupStatusLabel setStringValue:[currentTimingTask valueForKey:@"name"]];
-    
-    //Show the popup
-    //[[self popover] showRelativeToRect:[statusItemButton bounds] ofView:statusItemButton preferredEdge:NSMaxYEdge];
-    [[self popover] showRelativeToRect:[scrollingView bounds] ofView:scrollingView preferredEdge:NSMaxYEdge];
+    [self showPopover:[currentTimingTask valueForKey:@"name"]];
     
     [startButton setEnabled:FALSE];
     [stopButton setEnabled:TRUE];
@@ -478,10 +472,7 @@ bool silent = false;
     
     currentTimingTask = NULL;
     
-    [popupStatusLabel setStringValue:@"---"];
-    
-    //Show the popup
-    [[self popover] showRelativeToRect:[scrollingView bounds] ofView:scrollingView preferredEdge:NSMaxYEdge];
+    [self showPopover:@"---"];
     
     // Save data
     [self saveAction:self];
@@ -678,11 +669,7 @@ bool silent = false;
                     // Continue with the running task
                 }
                 
-                // Update popover and show it
-                [popupStatusLabel setStringValue:[currentTimingTask valueForKey:@"name"]];
-                
-                //Show the popup
-                [[self popover] showRelativeToRect:[scrollingView bounds] ofView:scrollingView preferredEdge:NSMaxYEdge];
+                [self showPopover:[currentTimingTask valueForKey:@"name"]];
              
                 // Show details panel
                 [self doubleClick:self];
@@ -715,11 +702,7 @@ bool silent = false;
             // Start timing from now on with the same task
             startDate = [[NSDate alloc] init];
             
-            // Update popover and show it
-            [popupStatusLabel setStringValue:[currentTimingTask valueForKey:@"name"]];
-            
-            //Show the popup
-            [[self popover] showRelativeToRect:[scrollingView bounds] ofView:scrollingView preferredEdge:NSMaxYEdge];
+            [self showPopover:[currentTimingTask valueForKey:@"name"]];
             
             [self doubleClick:self];
         }
@@ -731,6 +714,30 @@ bool silent = false;
     // Close the window
     [NSApp endSheet:inactivityWindow];
     [inactivityWindow orderOut:object];
+}
+
+
+
+-(void)showPopover:(NSString*)text {
+    
+    // Only update text if given
+    if (text) {
+        // Update popover and show it
+        [popupStatusLabel setStringValue:text];
+    }
+    
+    // Show the popover
+    [[self popover] showRelativeToRect:[scrollingView bounds] ofView:scrollingView preferredEdge:NSMaxYEdge];
+    
+    // Set auto-hide after 3 Seconds
+    popoverTimer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(hidePopover) userInfo:nil repeats:NO];
+    
+}
+
+
+-(void)hidePopover {
+    [[self popover] close];
+    [popoverTimer invalidate];
 }
 
 
@@ -819,6 +826,27 @@ bool silent = false;
     
     [timeController setData:[timeItemsArrayController arrangedObjects]];
     [timeController showWindow:self];
+    
+}
+
+
+
+-(IBAction)showSettings:(id)sender {
+    
+    if (!settingsSheet) {
+        
+        //Check the myCustomSheet instance variable to make sure the custom sheet does not already exist.
+        
+        [NSBundle loadNibNamed: @"SettingsPanel" owner:_window];
+    
+    }
+
+    
+    [NSApp beginSheet:settingsSheet
+       modalForWindow:(NSWindow *)_window
+        modalDelegate:self
+       didEndSelector:nil
+          contextInfo:nil];
     
 }
 

@@ -79,7 +79,7 @@
 // Actions in the inactivity popup
 - (IBAction) radioButtonSelected:(id)sender;
 
-- (void) showStatusBarPopover:(id)sender;
+- (void) showPopover:(id)sender;
 
 // Show timesheet window
 - (IBAction) showTimeSheet:(id)sender;
@@ -91,6 +91,8 @@
 - (IBAction)saveAction:(id)sender;
 
 -(IBAction)testAction:(id)sender;
+
+-(IBAction)showSettings:(id)sender;
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSPopover *popover;

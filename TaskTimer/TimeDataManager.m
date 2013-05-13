@@ -19,6 +19,11 @@ NSMutableDictionary *weekSumDict;
 NSMutableDictionary *monthTaskDict;
 NSMutableDictionary *monthSumDict;
 
+// Result data sets
+NSMutableArray *monthDataSet;
+NSMutableArray *weekDataSet;
+
+
 - (id)init
 {
     self = [super init];
@@ -191,22 +196,23 @@ NSMutableDictionary *monthSumDict;
 
 
 -(NSMutableArray*) getMonthData {
-    // Convert data into NSArray
-    NSMutableArray *dataSet = [[NSMutableArray alloc] init];
     
-    NSEnumerator *keyEnum = [monthTaskDict keyEnumerator];
-    NSString *key;
-    while(key = [keyEnum nextObject]) {
-        TaskResult *res = [[TaskResult alloc] init];
-        [res setTaskName:key];
-        NSDictionary *dict = [[monthTaskDict objectForKey:key] copy];
-        [res setTimeDict:dict];
-        [dataSet addObject:res];
+    if (!monthDataSet) {
+        // Convert data into NSArray
+        monthDataSet = [[NSMutableArray alloc] init];
+    
+        NSEnumerator *monthKeyEnum = [monthTaskDict keyEnumerator];
+        NSString *monthKey;
+        while(monthKey = [monthKeyEnum nextObject]) {
+            TaskResult *monthRes = [[TaskResult alloc] init];
+            [monthRes setTaskName:monthKey];
+            NSDictionary *dict = [[monthTaskDict objectForKey:monthKey] copy];
+            [monthRes setTimeDict:dict];
+            [monthDataSet addObject:monthRes];
+        }
     }
-    
-    //NSLog(@"Test1");
-    return dataSet;
-    //NSLog(@"Test2");
+
+    return monthDataSet;
 }
 
 
@@ -218,22 +224,24 @@ NSMutableDictionary *monthSumDict;
 
 
 -(NSMutableArray*) getWeekData2 {
-    // Convert data into NSArray
-    NSMutableArray *dataSet = [[NSMutableArray alloc] init];
+    NSLog(@"Start");
+    if (!weekDataSet) {
     
-    NSEnumerator *keyEnum = [weekTaskDict keyEnumerator];
-    NSString *key;
-    while(key = [keyEnum nextObject]) {
-        TaskResult *res = [[TaskResult alloc] init];
-        [res setTaskName:key];
-        NSDictionary *dict = [[weekTaskDict objectForKey:key] copy];
-        [res setTimeDict:dict];
-        [dataSet addObject:res];
+        // Convert data into NSArray
+        weekDataSet = [[NSMutableArray alloc] init];
+        
+        NSEnumerator *weekKeyEnum = [weekTaskDict keyEnumerator];
+        NSString *weekKey;
+        while(weekKey = [weekKeyEnum nextObject]) {
+            TaskResult *weekRes = [[TaskResult alloc] init];
+            [weekRes setTaskName:weekKey];
+            NSDictionary *dict = [[weekTaskDict objectForKey:weekKey] copy];
+            [weekRes setTimeDict:dict];
+            [weekDataSet addObject:weekRes];
+        }
     }
-    
-    NSLog(@"Test1");
-    return dataSet;
-    NSLog(@"Test2");
+
+    return weekDataSet;
 }
 
 
@@ -243,6 +251,20 @@ NSMutableDictionary *monthSumDict;
 }
 
 
+
+-(void) reset {
+    [weekDataSet removeAllObjects];
+    [monthDataSet removeAllObjects];
+    
+    [weekTaskDict removeAllObjects];
+    [weekSumDict removeAllObjects];
+    
+    [monthTaskDict removeAllObjects];
+    [monthSumDict removeAllObjects];
+    
+    weekDataSet = NULL;
+    monthDataSet = NULL;
+}
 
 
 @end

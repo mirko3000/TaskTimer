@@ -16,9 +16,9 @@ NSCalendar *cal;
 NSDateFormatter *dateFormatter;
 
 // Data for the tables
-NSMutableDictionary *dataDict;
-NSMutableDictionary *footerDict;
-NSMutableArray *dataSet;
+NSMutableDictionary *weekDataDict;
+NSMutableDictionary *weekFooterDict;
+NSMutableArray *weekDataSet;
 
 @synthesize linkedView;
 
@@ -37,8 +37,8 @@ NSMutableArray *dataSet;
 
 
 -(void) setData:(NSMutableArray*)timeArray withFooter:(NSMutableDictionary *)footerArray {
-    dataSet = timeArray;
-    footerDict = footerArray;
+    weekDataSet = timeArray;
+    weekFooterDict = footerArray;
     [[[self getLinkedViewLazy] mainTable] reloadData];
     [[[self getLinkedViewLazy] footerTable] reloadData];
 }
@@ -72,7 +72,7 @@ NSMutableArray *dataSet;
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
     if (aTableView == [[self getLinkedViewLazy] mainTable]) {
-        return [dataSet count];
+        return [weekDataSet count];
     }
     else {
         return 1;
@@ -82,7 +82,7 @@ NSMutableArray *dataSet;
 
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
     
-    TaskResult *dict = [dataSet objectAtIndex:rowIndex];
+    TaskResult *dict = [weekDataSet objectAtIndex:rowIndex];
     
     // Data table
     if (aTableView == [[self getLinkedViewLazy] mainTable]) {
@@ -90,7 +90,9 @@ NSMutableArray *dataSet;
             return [dict taskName];
         }
         else {
-            return [[dict timeDict] objectForKey:[aTableColumn identifier]];
+            //NSLog(@"Identifier: %@", [aTableColumn identifier]);
+            NSObject *object = [[dict timeDict] objectForKey:[aTableColumn identifier]];
+            return object;
         }
         
     }
@@ -100,7 +102,7 @@ NSMutableArray *dataSet;
             return @"SUM";
         }
         else {
-            return [footerDict objectForKey:[aTableColumn identifier]];
+            return [weekFooterDict objectForKey:[aTableColumn identifier]];
         }
     }
     

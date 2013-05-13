@@ -123,7 +123,7 @@ AppDelegate *delegate;
 
 
 -(void)mouseDown:(NSEvent *)event {
-    [delegate showStatusBarPopover:self];
+    [delegate showPopover:nil];
 }
 
 

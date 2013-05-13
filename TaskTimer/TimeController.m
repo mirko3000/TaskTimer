@@ -96,6 +96,7 @@ TimeDataManager *dataMgr;
     transition = [CATransition animation];
     [transition setType:kCATransitionPush];
     [transition setSubtype:kCATransitionFromRight];
+    [transition setSpeed:0.8];
     
     NSDictionary *ani = [NSDictionary dictionaryWithObject:transition forKey:@"subviews"];
     [weekView setAnimations:ani];
@@ -127,7 +128,6 @@ TimeDataManager *dataMgr;
     [monthView setEndDate:lastDayOfMonth];
     [monthView setDateInterval:MONTH];
     
-    
     // Update initial content
     [currentWeekView updateTableHeaders];
     [currentMonthView updateTableHeaders];
@@ -143,118 +143,29 @@ TimeDataManager *dataMgr;
     dataDict = [[NSMutableDictionary alloc] init];
     footerDict = [[NSMutableDictionary alloc] init];
     
+    [dataMgr reset];
+    
     // For each day calculate the sum of each task and the total sum of the day
     for (NSManagedObject *time in timeArray ) {
-        
         [dataMgr addTimeEntry:time];
-        
-        //NSManagedObject *task = [time valueForKey:@"task"];
-        //NSString *taskName = [task valueForKey:@"name"];
-        NSDate *start = [time valueForKey:@"start"];
-        //NSDate *end = [time valueForKey:@"end"];
-        NSNumber *duration = [time valueForKey:@"duration"];
-        
-        // check if start and end is on the same day
-        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        
-        NSDateComponents *startComponents = [gregorian components:(NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit) fromDate:start];
-        NSDateComponents *endComponents = [gregorian components:(NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit) fromDate:start];
-        
-        NSString *dateStringKey = [[NSMutableString alloc] init];
-        
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-        [dateFormatter setDateFormat:@"dd.MM.YY"];
-        dateStringKey = [dateFormatter stringFromDate:start];
-        
-        //NSLog(@"Key: %@", dateStringKey);
-        
-        if ([startComponents isEqualTo:endComponents]) {
-            
-            
-            // 1) First get the taks array
-            NSMutableDictionary *dataForTaskArray;
-            NSNumber *taskDayTime;
-            
-            if ([dataDict objectForKey:[[time valueForKey:@"task"] valueForKey:@"name"]] != NULL) {
-                dataForTaskArray = [dataDict objectForKey:[[time valueForKey:@"task"] valueForKey:@"name"]];
-            }
-            else {
-                // No entry yet for this task, create new dictionary
-                dataForTaskArray = [[NSMutableDictionary alloc] init];
-                [dataDict setObject:dataForTaskArray forKey:[[time valueForKey:@"task"] valueForKey:@"name"]];
-            }
-            
-            // 2) Second get the day
-            if ([dataForTaskArray objectForKey:dateStringKey] != NULL) {
-                //NSLog(@"Date: %@", startComponents);
-                taskDayTime = [dataForTaskArray objectForKey:dateStringKey];
-            }
-            else {
-                // No entry yet for this day, create new entry
-                taskDayTime = [[NSNumber alloc] initWithDouble:0.0];
-            }
-            
-            // Now add the current timing duration to the time entry
-            taskDayTime = [[NSNumber alloc] initWithDouble:([duration doubleValue] + [taskDayTime doubleValue])];
-            [dataForTaskArray setObject:taskDayTime forKey:dateStringKey];
-            //NSLog(@"New value: %@ for task %@", taskDayTime, taskName);
-            
-            
-            
-            //            // 3) Last get the day sum entry
-            //            if ([dataDict objectForKey:@"! SUM"] != NULL) {
-            //                dataForSumArray = [dataDict objectForKey:@"! SUM"];
-            //            }
-            //            else {
-            //                // No entry yet for this task, create new dictionary
-            //                dataForSumArray = [[NSMutableDictionary alloc] init];
-            //                [dataDict setObject:dataForSumArray forKey:@"! SUM"];
-            //            }
-            
-            // 4) Get the SUM day
-            if ([footerDict objectForKey:dateStringKey] != NULL) {
-                //NSLog(@"Date: %@", startComponents);
-                taskDayTime = [footerDict objectForKey:dateStringKey];
-            }
-            else {
-                // No entry yet for this day, create new entry
-                taskDayTime = [[NSNumber alloc] initWithDouble:0.0];
-            }
-            
-            // Now add the current timing duration to the time entry
-            taskDayTime = [[NSNumber alloc] initWithDouble:([duration doubleValue] + [taskDayTime doubleValue])];
-            [footerDict setObject:taskDayTime forKey:dateStringKey];
-            //NSLog(@"New value: %@ for task %@", taskDayTime, taskName);
-        }
-    }
-    
-    // Convert data into NSArray
-    dataSet = [[NSMutableArray alloc] init];
-    
-    NSEnumerator *keyEnum = [dataDict keyEnumerator];
-    NSString *key;
-    while(key = [keyEnum nextObject]) {
-        TaskResult *res = [[TaskResult alloc] init];
-        [res setTaskName:key];
-        NSDictionary *dict = [[dataDict objectForKey:key] copy];
-        [res setTimeDict:dict];
-        [dataSet addObject:res];
-        //NSLog(@"TimeDict: %@", res);
     }
     
     // set data for the week view controllers
-    //[weekController setData:dataSet withFooter:footerDict];
-    //[weekControllerNext setData:dataSet withFooter:footerDict];
-    //[weekControllerPrevious setData:dataSet withFooter:footerDict];
+    NSMutableArray *weekData = [dataMgr getWeekData2];
     
-    [weekController setData:[dataMgr getWeekData2] withFooter:[dataMgr getWeekSumData]];
-    [weekControllerNext setData:[dataMgr getWeekData2] withFooter:[dataMgr getWeekSumData]];
-    [weekControllerPrevious setData:[dataMgr getWeekData2] withFooter:[dataMgr getWeekSumData]];
+    [weekController setData:weekData withFooter:[dataMgr getWeekSumData]];
+    [weekControllerNext setData:weekData withFooter:[dataMgr getWeekSumData]];
+    [weekControllerPrevious setData:weekData withFooter:[dataMgr getWeekSumData]];
+
+    // set data for the month view controllers    
+    NSMutableArray *monthData = [dataMgr getMonthData];
     
-    // set data for the month view controllers
-    [monthController setData:[dataMgr getMonthData] withFooter:[dataMgr getMonthSumData]];
-    [monthControllerNext setData:[dataMgr getMonthData] withFooter:[dataMgr getMonthSumData]];
-    [monthControllerPrevious setData:[dataMgr getMonthData] withFooter:[dataMgr getMonthSumData]];
+    [monthController setData:monthData withFooter:[dataMgr getMonthSumData]];
+    [monthControllerNext setData:monthData withFooter:[dataMgr getMonthSumData]];
+    [monthControllerPrevious setData:monthData withFooter:[dataMgr getMonthSumData]];
+    
+    
+    
 }
 
 
@@ -275,25 +186,6 @@ TimeDataManager *dataMgr;
     [oldView updateTableHeaders];
     
 }
-
-
-- (void)setNewCurrentView:(MSZLinkedView*)newView
-{
-    if (!currentWeekView) {
-        currentWeekView = newView;
-        return;
-    }
-    //NSView *contentView = [[self window] contentView];
-    [[weekView animator] replaceSubview:currentWeekView with:newView];
-    
-    //[[contentView animator] replaceSubview:currentView with:newView];
-    currentWeekView = newView;
-    
-    [[currentWeekView label]  setStringValue:[[[dateFormatter stringFromDate:[currentWeekView startDate]] stringByAppendingString:@" - "] stringByAppendingString:[dateFormatter stringFromDate:[currentWeekView endDate]]]];
-
-    [currentWeekView updateTableHeaders];
-}
-
 
 
 - (IBAction)nextView:(id)sender;

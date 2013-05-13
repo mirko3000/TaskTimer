@@ -21,5 +21,7 @@
 -(NSMutableArray*) getWeekData2;
 -(NSMutableDictionary*) getWeekSumData;
 
+-(void) reset;
+
 
 @end
