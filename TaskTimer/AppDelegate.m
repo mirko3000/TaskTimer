@@ -19,6 +19,9 @@
 @synthesize window = _window;
 @synthesize popover;
 
+@synthesize notificationInterval;
+@synthesize inactivityTimeout;
+
 // Variables for the timer
 NSInteger currentFrame;
 NSTimer* animTimer;
@@ -37,6 +40,9 @@ NSWindow* settingsSheet;
 // Data Manager
 DataManager *dm;
 
+// Settings
+NSUserDefaults *preferences;
+
 // Silent mode flag
 bool silent = false;
 
@@ -47,6 +53,8 @@ NSTimer* popoverTimer;
     self = [super init];
     if (self) {
         // Do initialization stuff
+        //inactivityTimeout = @"10";
+        //notificationInterval = @"5";
     }
     return self;
 }
@@ -131,6 +139,14 @@ NSTimer* popoverTimer;
     [stopButton setEnabled:FALSE];
     [popupStopButton setEnabled:FALSE];
     
+    
+    // Register the preference defaults early.
+    
+    NSDictionary *appDefaults = [NSDictionary
+                                 dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"CacheDataAgressively"];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
+    
+    
     // Key Handler
     [NSEvent addGlobalMonitorForEventsMatchingMask:NSKeyDownMask
                                            handler:^(NSEvent *event){
@@ -143,7 +159,7 @@ NSTimer* popoverTimer;
                                                }
                                                else {
                                                    NSTimeInterval interval = -[lastMouseMovement timeIntervalSinceNow];
-                                                   if (interval > 120) {
+                                                   if (interval > [inactivityTimeout intValue]) {
                                                        NSLog(@"Awake from inaktive: %f", interval);
                                                        [self showInactivityPopup:self];
                                                    }
@@ -163,7 +179,7 @@ NSTimer* popoverTimer;
                                                }
                                                else {
                                                    NSTimeInterval interval = -[lastMouseMovement timeIntervalSinceNow];
-                                                   if (interval > 120) {
+                                                   if (interval > [inactivityTimeout intValue]) {
                                                        NSLog(@"Awake from inaktive: %f", interval);
                                                        [self showInactivityPopup:self];
                                                    }
@@ -172,6 +188,37 @@ NSTimer* popoverTimer;
                                                    }
                                                }
                                            }];
+    
+}
+
+
+
+
+-(void)applicationDidFinishLaunching:(NSNotification *)notification {
+    
+    preferences = [NSUserDefaults standardUserDefaults];
+    NSString *file = [[NSBundle mainBundle]
+                      pathForResource:@"Defaults" ofType:@"plist"];
+    
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:file];
+    [preferences registerDefaults:dict];
+    
+    // Check if preferences already exist
+    if (![preferences integerForKey:@"interval"]) {
+        [preferences setInteger:10 forKey:@"interval"];
+            }
+    if (![preferences integerForKey:@"timeout"]) {
+        [preferences setInteger:5 forKey:@"timeout"];
+        
+    }
+    NSLog(@"Interval: %ld", (long)[preferences integerForKey:@"interval"]);
+    
+    
+    notificationInterval = [NSString stringWithFormat:@"%li", (long)[preferences integerForKey:@"interval"]];
+    inactivityTimeout = [NSString stringWithFormat:@"%li", (long)[preferences integerForKey:@"timeout"]];
+    
+    [preferences synchronize];
+    
     
 }
 
@@ -252,16 +299,6 @@ NSTimer* popoverTimer;
     [NSEvent removeMonitor:self];
     
     return NSTerminateNow;
-}
-
-
-
-
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
-
-    
-
 }
 
 
@@ -505,7 +542,7 @@ NSTimer* popoverTimer;
     int minutes = ((int) (interval - seconds) / 60) % 60;
     int hours = ((int) interval - seconds - 60 * minutes) / 3600;
     
-    if (minutes % 15 == 0 && seconds == 0 && !silent) {
+    if (minutes % [notificationInterval intValue] == 0 && seconds == 0 && !silent) {
         
         NSUserNotification *notification = [[NSUserNotification alloc] init];
         notification.title = @"Task Timer Notification";
@@ -791,6 +828,35 @@ NSTimer* popoverTimer;
 }
 
 
+-(void) showSettings:(id)sender {
+    
+    [notificationTextField setStringValue:notificationInterval];
+    [inactitivyTextField setStringValue:inactivityTimeout];
+    
+    [NSApp beginSheet:settingsSheet
+       modalForWindow:(NSWindow *)_window
+        modalDelegate:self
+       didEndSelector:nil
+          contextInfo:nil];
+}
+
+
+
+-(void) closeSettings:(id)sender {
+    [NSApp endSheet:settingsSheet];
+    [settingsSheet orderOut:sender];
+    
+    notificationInterval = [notificationTextField stringValue];
+    inactivityTimeout = [inactitivyTextField stringValue];
+    
+    
+    [preferences setInteger:[notificationInterval intValue] forKey:@"interval"];
+    [preferences setInteger:[inactivityTimeout intValue] forKey:@"timeout"];
+    
+    [preferences synchronize];
+}
+
+
 
 -(IBAction)showTimeSheet:(id)sender {
     if (!timeSheetController) {
@@ -828,28 +894,6 @@ NSTimer* popoverTimer;
     [timeController showWindow:self];
     
 }
-
-
-
--(IBAction)showSettings:(id)sender {
-    
-    if (!settingsSheet) {
-        
-        //Check the myCustomSheet instance variable to make sure the custom sheet does not already exist.
-        
-        [NSBundle loadNibNamed: @"SettingsPanel" owner:_window];
-    
-    }
-
-    
-    [NSApp beginSheet:settingsSheet
-       modalForWindow:(NSWindow *)_window
-        modalDelegate:self
-       didEndSelector:nil
-          contextInfo:nil];
-    
-}
-
 
 
 @end

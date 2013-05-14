@@ -55,18 +55,20 @@
     IBOutlet NSPanel *detailsSheet;
     IBOutlet NSTextField *detailsCommentField;
     
-    // Inactivity sheet
+    // Details sheet
+    IBOutlet NSPanel *settingsSheet;
+    IBOutlet NSTextField *inactitivyTextField;
+    IBOutlet NSTextField *notificationTextField;
+    
+    // Inactivity popup
     IBOutlet NSPanel *inactivityWindow;
     IBOutlet NSTextField *awayTimeValueLabel;
     IBOutlet NSComboBox *inactivityTaskCombo;
     IBOutlet NSMatrix *inactivityRadioGroup;
     IBOutlet NSButton *inactivityCheckbox;
     
-
-    
     // Data Management
     IBOutlet DataManager *dm;
-
 }
 
 - (IBAction)startTiming:(id)sender;
@@ -75,6 +77,10 @@
 - (IBAction)showInfoPopup:(id)sender;
 - (IBAction)showInactivityPopup:(id)sender;
 - (IBAction)closeInactivityPopup:(id)sender;
+
+-(IBAction)showSettings:(id)sender;
+-(IBAction)closeSettings:(id)sender;
+
 
 // Actions in the inactivity popup
 - (IBAction) radioButtonSelected:(id)sender;
@@ -96,5 +102,9 @@
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSPopover *popover;
+
+// Settings
+@property (assign) NSString *inactivityTimeout;
+@property (assign) NSString *notificationInterval;
 
 @end
