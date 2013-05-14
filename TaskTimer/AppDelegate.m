@@ -139,21 +139,41 @@ NSTimer* popoverTimer;
     [stopButton setEnabled:FALSE];
     [popupStopButton setEnabled:FALSE];
     
+}
+
+
+
+
+-(void)applicationDidFinishLaunching:(NSNotification *)notification {
     
-    // Register the preference defaults early.
+    preferences = [NSUserDefaults standardUserDefaults];
+    NSString *file = [[NSBundle mainBundle]
+                      pathForResource:@"Defaults" ofType:@"plist"];
     
-    NSDictionary *appDefaults = [NSDictionary
-                                 dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"CacheDataAgressively"];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:file];
+    [preferences registerDefaults:dict];
     
+    // Check if preferences already exist
+    if (![preferences integerForKey:@"interval"]) {
+        [preferences setInteger:120 forKey:@"interval"];
+            }
+    if (![preferences integerForKey:@"timeout"]) {
+        [preferences setInteger:15 forKey:@"timeout"];
+        
+    }
+    
+    notificationInterval = [NSString stringWithFormat:@"%li", (long)[preferences integerForKey:@"interval"]];
+    inactivityTimeout = [NSString stringWithFormat:@"%li", (long)[preferences integerForKey:@"timeout"]];
+    
+    [preferences synchronize];
     
     // Key Handler
     [NSEvent addGlobalMonitorForEventsMatchingMask:NSKeyDownMask
                                            handler:^(NSEvent *event){
-
+                                               
                                                //NSString *chars = [[event characters] lowercaseString];
                                                //unichar character = [chars characterAtIndex:0];
-
+                                               
                                                if (lastMouseMovement == NULL) {
                                                    lastMouseMovement = [[NSDate alloc] init];
                                                }
@@ -173,12 +193,13 @@ NSTimer* popoverTimer;
     // Mouse Handler
     [NSEvent addGlobalMonitorForEventsMatchingMask:NSMouseMovedMask
                                            handler:^(NSEvent *event){
-                                    
+                                               
                                                if (lastMouseMovement == NULL) {
                                                    lastMouseMovement = [[NSDate alloc] init];
                                                }
                                                else {
                                                    NSTimeInterval interval = -[lastMouseMovement timeIntervalSinceNow];
+
                                                    if (interval > [inactivityTimeout intValue]) {
                                                        NSLog(@"Awake from inaktive: %f", interval);
                                                        [self showInactivityPopup:self];
@@ -188,36 +209,6 @@ NSTimer* popoverTimer;
                                                    }
                                                }
                                            }];
-    
-}
-
-
-
-
--(void)applicationDidFinishLaunching:(NSNotification *)notification {
-    
-    preferences = [NSUserDefaults standardUserDefaults];
-    NSString *file = [[NSBundle mainBundle]
-                      pathForResource:@"Defaults" ofType:@"plist"];
-    
-    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:file];
-    [preferences registerDefaults:dict];
-    
-    // Check if preferences already exist
-    if (![preferences integerForKey:@"interval"]) {
-        [preferences setInteger:10 forKey:@"interval"];
-            }
-    if (![preferences integerForKey:@"timeout"]) {
-        [preferences setInteger:5 forKey:@"timeout"];
-        
-    }
-    NSLog(@"Interval: %ld", (long)[preferences integerForKey:@"interval"]);
-    
-    
-    notificationInterval = [NSString stringWithFormat:@"%li", (long)[preferences integerForKey:@"interval"]];
-    inactivityTimeout = [NSString stringWithFormat:@"%li", (long)[preferences integerForKey:@"timeout"]];
-    
-    [preferences synchronize];
     
     
 }

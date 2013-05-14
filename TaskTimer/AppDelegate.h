@@ -104,7 +104,7 @@
 @property (assign) IBOutlet NSPopover *popover;
 
 // Settings
-@property (assign) NSString *inactivityTimeout;
-@property (assign) NSString *notificationInterval;
+@property (retain) NSString *inactivityTimeout;
+@property (retain) NSString *notificationInterval;
 
 @end
