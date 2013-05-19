@@ -36,7 +36,7 @@ NSMutableArray *weekDataSet;
 
 
 
--(void) setData:(NSMutableArray*)timeArray withFooter:(NSMutableDictionary *)footerArray {
+-(void) setData:(NSMutableArray*)timeArray withFooter:(NSMutableDictionary *)footerArray {    
     weekDataSet = timeArray;
     weekFooterDict = footerArray;
     [[[self getLinkedViewLazy] mainTable] reloadData];

@@ -15,7 +15,7 @@
 }
 
 - (void)addSynchronizedScrollView:(NSScrollView*)scrollview verticalScroll:(BOOL)vertical horizontalScroll:(BOOL)horizontal;
-- (void)removeSynchronizedScrollView:(NSScrollView*)scrollview verticalScroll:(BOOL)vertical horizontalScroll:(BOOL)horizontal;
+//- (void)removeSynchronizedScrollView:(NSScrollView*)scrollview verticalScroll:(BOOL)vertical horizontalScroll:(BOOL)horizontal;
 - (void)setSynchronizedScrollView:(NSScrollView*)scrollview;
 - (void)stopSynchronizing;
 - (void)synchronizedViewContentBoundsDidChange:(NSNotification *)notification;

@@ -748,6 +748,9 @@ NSTimer* popoverTimer;
 
 -(void)showPopover:(NSString*)text {
     
+    // stop timer if its still running
+    [popoverTimer invalidate];
+    
     // Only update text if given
     if (text) {
         // Update popover and show it

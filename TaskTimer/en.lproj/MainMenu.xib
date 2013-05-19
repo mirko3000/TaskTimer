@@ -819,8 +819,8 @@
 							<object class="NSMutableString" key="NSToolbarItemIdentifier">
 								<characters key="NS.bytes">01089220-DA56-4B21-88E1-55C846A6AC1E</characters>
 							</object>
-							<string key="NSToolbarItemLabel">Report2</string>
-							<string key="NSToolbarItemPaletteLabel">Report2</string>
+							<string key="NSToolbarItemLabel">Report</string>
+							<string key="NSToolbarItemPaletteLabel">Report</string>
 							<string key="NSToolbarItemToolTip"/>
 							<nil key="NSToolbarItemView"/>
 							<object class="NSCustomResource" key="NSToolbarItemImage" id="286005122">
@@ -832,7 +832,7 @@
 							<string key="NSToolbarItemMinSize">{0, 0}</string>
 							<string key="NSToolbarItemMaxSize">{0, 0}</string>
 							<bool key="NSToolbarItemEnabled">YES</bool>
-							<bool key="NSToolbarItemAutovalidates">YES</bool>
+							<bool key="NSToolbarItemAutovalidates">NO</bool>
 							<int key="NSToolbarItemTag">-1</int>
 							<bool key="NSToolbarIsUserRemovable">YES</bool>
 							<int key="NSToolbarItemVisibilityPriority">0</int>
@@ -929,8 +929,8 @@
 							<object class="NSMutableString" key="NSToolbarItemIdentifier">
 								<characters key="NS.bytes">D34323B8-1F12-4554-9621-FC59E3F05868</characters>
 							</object>
-							<string key="NSToolbarItemLabel">Report</string>
-							<string key="NSToolbarItemPaletteLabel">Report</string>
+							<string key="NSToolbarItemLabel">Report_old</string>
+							<string key="NSToolbarItemPaletteLabel">Report_old</string>
 							<string key="NSToolbarItemToolTip"/>
 							<nil key="NSToolbarItemView"/>
 							<reference key="NSToolbarItemImage" ref="286005122"/>
@@ -1059,7 +1059,7 @@
 							</object>
 						</object>
 					</dictionary>
-					<array class="NSMutableArray" key="NSToolbarIBAllowedItems">
+					<array key="NSToolbarIBAllowedItems">
 						<reference ref="401479475"/>
 						<reference ref="787970767"/>
 						<reference ref="806212729"/>
@@ -1075,7 +1075,6 @@
 					<array key="NSToolbarIBDefaultItems">
 						<reference ref="91607286"/>
 						<reference ref="686764911"/>
-						<reference ref="82277250"/>
 						<reference ref="895485077"/>
 						<reference ref="397643360"/>
 						<reference ref="29372471"/>
@@ -7744,7 +7743,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="removeTimeItem:">id</string>
 						<string key="saveAction:">id</string>
 						<string key="showInactivityPopup:">id</string>
-						<string key="showInfoPopup:">id</string>
 						<string key="showSettings:">id</string>
 						<string key="showTimeSheet:">id</string>
 						<string key="startTiming:">id</string>
@@ -7793,10 +7791,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						</object>
 						<object class="IBActionInfo" key="showInactivityPopup:">
 							<string key="name">showInactivityPopup:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showInfoPopup:">
-							<string key="name">showInfoPopup:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="showSettings:">

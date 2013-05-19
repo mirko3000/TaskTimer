@@ -100,7 +100,6 @@ TimeIntervalFormatter *timeFormatter;
         NSDate *loopDate = [startDate copy];
         
         while (![loopDate isGreaterThan:endDate]) {
-            
             [self buildTableColumn:[weekDateFormatter stringFromDate:loopDate]];
             loopDate = [loopDate dateByAddingTimeInterval:60*60*24];
         }
@@ -135,10 +134,10 @@ TimeIntervalFormatter *timeFormatter;
         [newColumn setWidth:60.0];
     }
     else if (dateInterval == MONTH) {
-        [newColumn setWidth:120.0];
+        [newColumn setWidth:130.0];
     }
     else {
-        [newColumn setWidth:120.0];
+        [newColumn setWidth:130.0];
     }
     
     [textCell setFormatter:timeFormatter];

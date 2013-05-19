@@ -74,7 +74,7 @@
 - (IBAction)startTiming:(id)sender;
 - (IBAction)stopTiming:(id)sender;
 
-- (IBAction)showInfoPopup:(id)sender;
+
 - (IBAction)showInactivityPopup:(id)sender;
 - (IBAction)closeInactivityPopup:(id)sender;
 
@@ -98,7 +98,6 @@
 
 -(IBAction)testAction:(id)sender;
 
--(IBAction)showSettings:(id)sender;
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSPopover *popover;

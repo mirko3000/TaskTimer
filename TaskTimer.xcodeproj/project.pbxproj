@@ -31,7 +31,6 @@
 		ACC365F61711E7E600FBB415 /* Play.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC365F21711E7E600FBB415 /* Play.png */; };
 		ACC365F91711E93200FBB415 /* Scheduled Tasks.icns in Resources */ = {isa = PBXBuildFile; fileRef = ACC365F71711E93200FBB415 /* Scheduled Tasks.icns */; };
 		ACC365FA1711E93200FBB415 /* Scheduled Tasks.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC365F81711E93200FBB415 /* Scheduled Tasks.png */; };
-		ACC365FC1711E95C00FBB415 /* Scheduled Tasks.icns in Resources */ = {isa = PBXBuildFile; fileRef = ACC365FB1711E95C00FBB415 /* Scheduled Tasks.icns */; };
 		ACCD9739171C922C0013034D /* ScrollingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCD9738171C922C0013034D /* ScrollingTextView.m */; };
 		ACCD973C171CA4CF0013034D /* FBScrollingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCD973B171CA4CF0013034D /* FBScrollingTextView.m */; };
 		ACE9C3D81721F6D900241BD4 /* SynchroScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE9C3D71721F6D900241BD4 /* SynchroScrollView.m */; };
@@ -85,7 +84,6 @@
 		ACC365F21711E7E600FBB415 /* Play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Play.png; sourceTree = "<group>"; };
 		ACC365F71711E93200FBB415 /* Scheduled Tasks.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "Scheduled Tasks.icns"; sourceTree = "<group>"; };
 		ACC365F81711E93200FBB415 /* Scheduled Tasks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Scheduled Tasks.png"; sourceTree = "<group>"; };
-		ACC365FB1711E95C00FBB415 /* Scheduled Tasks.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "Scheduled Tasks.icns"; sourceTree = "<group>"; };
 		ACCD9737171C922C0013034D /* ScrollingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollingTextView.h; sourceTree = "<group>"; };
 		ACCD9738171C922C0013034D /* ScrollingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollingTextView.m; sourceTree = "<group>"; };
 		ACCD973A171CA4CF0013034D /* FBScrollingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBScrollingTextView.h; sourceTree = "<group>"; };
@@ -142,7 +140,6 @@
 			isa = PBXGroup;
 			children = (
 				ACBF3FC71730822C00CA6457 /* QuartzCore.framework */,
-				ACC365FB1711E95C00FBB415 /* Scheduled Tasks.icns */,
 				AC51A24717104160005F65E8 /* TaskTimer */,
 				AC51A24017104160005F65E8 /* Frameworks */,
 				AC51A23F17104160005F65E8 /* Products */,
@@ -336,7 +333,6 @@
 				ACC365F61711E7E600FBB415 /* Play.png in Resources */,
 				ACC365F91711E93200FBB415 /* Scheduled Tasks.icns in Resources */,
 				ACC365FA1711E93200FBB415 /* Scheduled Tasks.png in Resources */,
-				ACC365FC1711E95C00FBB415 /* Scheduled Tasks.icns in Resources */,
 				ACFBAF5C1713610E00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.icns in Resources */,
 				ACFBAF5D1713610E00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.icns in Resources */,
 				ACFBAF5E1713610E00DA9A47 /* Oxygen-Icons.org-Oxygen-Actions-media-playback-start.icns in Resources */,
