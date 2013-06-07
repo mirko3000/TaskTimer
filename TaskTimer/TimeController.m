@@ -179,8 +179,6 @@ TimeDataManager *dataMgr;
     [[masterView animator] replaceSubview:oldView with:newView];
     oldView = newView;
     
-    // Update the date label
-    //[[oldView label]  setStringValue:[[[dateFormatter stringFromDate:[oldView startDate]] stringByAppendingString:@" - "] stringByAppendingString:[dateFormatter stringFromDate:[oldView endDate]]]];
     [oldView updateLabel];
     
     [oldView updateTableHeaders];

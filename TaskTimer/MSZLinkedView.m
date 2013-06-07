@@ -18,6 +18,7 @@ const int WEEK = 2;
 const int DAY = 3;
 
 NSDateFormatter *weekDateFormatter;
+NSDateFormatter *calendarWeekDateFormatter;
 NSDateFormatter *monthDateFormatter;
 TimeIntervalFormatter *timeFormatter;
 
@@ -43,7 +44,10 @@ TimeIntervalFormatter *timeFormatter;
     [weekDateFormatter setDateFormat:@"dd.MM.yy"];
     
     monthDateFormatter = [[NSDateFormatter alloc] init];
-    [monthDateFormatter setDateFormat:@"MM.yyyy"];
+    [monthDateFormatter setDateFormat:@"MMMM yyyy"];
+    
+    calendarWeekDateFormatter = [[NSDateFormatter alloc] init];
+    [calendarWeekDateFormatter setDateFormat:@"w/yyyy"];
     
     //[label setStringValue:[[[weekDateFormatter stringFromDate:startDate] stringByAppendingString:@" - "] stringByAppendingString:[weekDateFormatter stringFromDate:endDate]]];
     
@@ -57,7 +61,9 @@ TimeIntervalFormatter *timeFormatter;
         [label setStringValue:[monthDateFormatter stringFromDate:startDate]];
     }
     else if (dateInterval == WEEK) {
-        [label setStringValue:[[[weekDateFormatter stringFromDate:startDate] stringByAppendingString:@" - "] stringByAppendingString:[weekDateFormatter stringFromDate:endDate]]];
+        [label setStringValue:[@"Calendar Week " stringByAppendingString:[calendarWeekDateFormatter stringFromDate:startDate] ]];
+        
+        //[label setStringValue:[[[weekDateFormatter stringFromDate:startDate] stringByAppendingString:@" - "] stringByAppendingString:[weekDateFormatter stringFromDate:endDate]]];
         
     }
     else {

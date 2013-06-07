@@ -1077,9 +1077,8 @@
 						<reference ref="686764911"/>
 						<reference ref="895485077"/>
 						<reference ref="397643360"/>
-						<reference ref="29372471"/>
 						<reference ref="601236251"/>
-						<reference ref="806212729"/>
+						<reference ref="29372471"/>
 					</array>
 					<array key="NSToolbarIBSelectableItems" id="0"/>
 				</object>
@@ -1094,7 +1093,6 @@
 							<string key="NSFrame">{{1, 7}, {348, 367}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="538838598"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<array class="NSMutableArray" key="NSTabViewItems">
 								<object class="NSTabViewItem" id="715027388">
@@ -1117,7 +1115,7 @@
 																<string key="NSFrameSize">{309, 241}</string>
 																<reference key="NSSuperview" ref="564336469"/>
 																<reference key="NSWindow"/>
-																<reference key="NSNextKeyView" ref="924787831"/>
+																<reference key="NSNextKeyView" ref="369250268"/>
 																<string key="NSReuseIdentifierKey">_NS:13</string>
 																<bool key="NSEnabled">YES</bool>
 																<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -1308,7 +1306,7 @@
 												<string key="NSFrame">{{9, 36}, {311, 259}}</string>
 												<reference key="NSSuperview" ref="538838598"/>
 												<reference key="NSWindow"/>
-												<reference key="NSNextKeyView" ref="369250268"/>
+												<reference key="NSNextKeyView" ref="564336469"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<int key="NSsFlags">133682</int>
 												<reference key="NSVScroller" ref="924787831"/>
@@ -1391,7 +1389,6 @@
 												<string key="NSFrame">{{9, 16}, {311, 23}}</string>
 												<reference key="NSSuperview" ref="538838598"/>
 												<reference key="NSWindow"/>
-												<reference key="NSNextKeyView"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSSegmentedCell" key="NSCell" id="863928183">
@@ -1920,7 +1917,6 @@
 						<string key="NSFrame">{{246, 7}, {39, 38}}</string>
 						<reference key="NSSuperview" ref="558609023"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:1574</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="609458468">
@@ -2022,7 +2018,6 @@
 							<string key="NSFrame">{{277, 4}, {59, 32}}</string>
 							<reference key="NSSuperview" ref="205901047"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="311337843">
@@ -2661,7 +2656,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string key="NSFrame">{{277, 4}, {59, 32}}</string>
 							<reference key="NSSuperview" ref="227253671"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="149132354">
@@ -7733,34 +7727,19 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<string key="className">AppDelegate</string>
 					<string key="superclassName">NSObject</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="addNewTaskItem:">id</string>
-						<string key="addNewTimeItem:">id</string>
 						<string key="closeInactivityPopup:">id</string>
 						<string key="closeSettings:">id</string>
-						<string key="endTheSheet:">id</string>
 						<string key="radioButtonSelected:">id</string>
-						<string key="removeTaskItem:">id</string>
-						<string key="removeTimeItem:">id</string>
 						<string key="saveAction:">id</string>
 						<string key="showInactivityPopup:">id</string>
 						<string key="showSettings:">id</string>
 						<string key="showTimeSheet:">id</string>
 						<string key="startTiming:">id</string>
 						<string key="stopTiming:">id</string>
-						<string key="taskSegControlClicked:">id</string>
 						<string key="testAction:">id</string>
-						<string key="timeSegControlClicked:">id</string>
 						<string key="toggleSilentMode:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="addNewTaskItem:">
-							<string key="name">addNewTaskItem:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="addNewTimeItem:">
-							<string key="name">addNewTimeItem:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="closeInactivityPopup:">
 							<string key="name">closeInactivityPopup:</string>
 							<string key="candidateClassName">id</string>
@@ -7769,20 +7748,8 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string key="name">closeSettings:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="endTheSheet:">
-							<string key="name">endTheSheet:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="radioButtonSelected:">
 							<string key="name">radioButtonSelected:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="removeTaskItem:">
-							<string key="name">removeTaskItem:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="removeTimeItem:">
-							<string key="name">removeTimeItem:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="saveAction:">
@@ -7809,16 +7776,8 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string key="name">stopTiming:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="taskSegControlClicked:">
-							<string key="name">taskSegControlClicked:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="testAction:">
 							<string key="name">testAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="timeSegControlClicked:">
-							<string key="name">timeSegControlClicked:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="toggleSilentMode:">

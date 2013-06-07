@@ -33,6 +33,7 @@
 		ACC365FA1711E93200FBB415 /* Scheduled Tasks.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC365F81711E93200FBB415 /* Scheduled Tasks.png */; };
 		ACCD9739171C922C0013034D /* ScrollingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCD9738171C922C0013034D /* ScrollingTextView.m */; };
 		ACCD973C171CA4CF0013034D /* FBScrollingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCD973B171CA4CF0013034D /* FBScrollingTextView.m */; };
+		ACE0359B1750969E0061D20B /* DayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACE0359A1750969E0061D20B /* DayView.xib */; };
 		ACE9C3D81721F6D900241BD4 /* SynchroScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE9C3D71721F6D900241BD4 /* SynchroScrollView.m */; };
 		ACE9C3E01722165300241BD4 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE9C3DF1722165300241BD4 /* DataManager.m */; };
 		ACEC381E1718C43400E356A0 /* TimesheetWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACEC381D1718C43400E356A0 /* TimesheetWindow.xib */; };
@@ -88,6 +89,7 @@
 		ACCD9738171C922C0013034D /* ScrollingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollingTextView.m; sourceTree = "<group>"; };
 		ACCD973A171CA4CF0013034D /* FBScrollingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBScrollingTextView.h; sourceTree = "<group>"; };
 		ACCD973B171CA4CF0013034D /* FBScrollingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBScrollingTextView.m; sourceTree = "<group>"; };
+		ACE0359A1750969E0061D20B /* DayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayView.xib; sourceTree = "<group>"; };
 		ACE9C3D61721F6D900241BD4 /* SynchroScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynchroScrollView.h; sourceTree = "<group>"; };
 		ACE9C3D71721F6D900241BD4 /* SynchroScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SynchroScrollView.m; sourceTree = "<group>"; };
 		ACE9C3DE1722165300241BD4 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				ACBF3FCB1734738F00CA6457 /* WeekViewController.h */,
 				ACBF3FCC1734738F00CA6457 /* WeekViewController.m */,
 				ACBF3FCE17347E8800CA6457 /* MonthView.xib */,
+				ACE0359A1750969E0061D20B /* DayView.xib */,
 				ACBF3FD01734802F00CA6457 /* MonthViewController.h */,
 				ACBF3FD11734802F00CA6457 /* MonthViewController.m */,
 				ACBF3FD31735214500CA6457 /* TimeDataManager.h */,
@@ -343,6 +346,7 @@
 				AC4B7EB21726FB22007DC96C /* TimeSheet.xib in Resources */,
 				ACBF3FCA173470BF00CA6457 /* WeekView.xib in Resources */,
 				ACBF3FCF17347E8800CA6457 /* MonthView.xib in Resources */,
+				ACE0359B1750969E0061D20B /* DayView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

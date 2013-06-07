@@ -139,6 +139,11 @@ NSTimer* popoverTimer;
     [stopButton setEnabled:FALSE];
     [popupStopButton setEnabled:FALSE];
     
+    
+    
+    // Set styles and colors
+    
+    
 }
 
 
@@ -364,6 +369,22 @@ NSTimer* popoverTimer;
     
     if ([selObj count] > 0) {
         
+        NSString *question = NSLocalizedString(@"Delete task?", @"Delete question");
+        NSString *info = NSLocalizedString(@"Do you really want to delete the selected task? This will also delete all time entries for this task!", @"Delete info");
+        NSString *deleteButton = NSLocalizedString(@"Delete", @"Delete button title");
+        NSString *cancelButton = NSLocalizedString(@"Cancel", @"Cancel button title");
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText:question];
+        [alert setInformativeText:info];
+        [alert addButtonWithTitle:cancelButton];
+        [alert addButtonWithTitle:deleteButton];
+        
+        NSInteger answer = [alert runModal];
+        
+        if (answer == NSAlertFirstButtonReturn) {
+            return;
+        }
+        
         NSManagedObject *task = [selObj objectAtIndex:0];
         
         // First remove all timings to this task
@@ -410,6 +431,24 @@ NSTimer* popoverTimer;
     NSArray *selObj = [timeItemsArrayController selectedObjects];
     
     if ([selObj count] > 0) {
+    
+        NSString *question = NSLocalizedString(@"Delete time enty?", @"Delete question");
+        NSString *info = NSLocalizedString(@"Do you really want to delete the selected time entry", @"Delete info");
+        NSString *deleteButton = NSLocalizedString(@"Delete", @"Delete button title");
+        NSString *cancelButton = NSLocalizedString(@"Cancel", @"Cancel button title");
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText:question];
+        [alert setInformativeText:info];
+        [alert addButtonWithTitle:cancelButton];
+        [alert addButtonWithTitle:deleteButton];
+        
+        
+        NSInteger answer = [alert runModal];
+        
+        if (answer == NSAlertFirstButtonReturn) {
+            return;
+        }
+        
         
         // Recalculate total time for task
         NSManagedObject *timing = [selObj objectAtIndex:0];

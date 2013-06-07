@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TaskTimer/AppDelegate.m"
-         timestampString = "390690983.053594"
+         timestampString = "391156966.845315"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "876"
-         endingLineNumber = "876"
+         startingLineNumber = "915"
+         endingLineNumber = "915"
          landmarkName = "-toggleSilentMode:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TaskTimer/TimeController.m"
-         timestampString = "390167300.005544"
+         timestampString = "391157676.190499"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "233"
-         endingLineNumber = "233"
+         startingLineNumber = "231"
+         endingLineNumber = "231"
          landmarkName = "-nextView:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TaskTimer/MSZLinkedView.m"
-         timestampString = "390693256.152664"
+         timestampString = "391158027.782896"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "103"
-         endingLineNumber = "103"
+         startingLineNumber = "109"
+         endingLineNumber = "109"
          landmarkName = "-updateTableHeaders"
          landmarkType = "5">
       </FileBreakpoint>
@@ -73,11 +73,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TaskTimer/MSZLinkedView.m"
-         timestampString = "389355654.007155"
+         timestampString = "391158027.782896"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "74"
-         endingLineNumber = "74"
+         startingLineNumber = "80"
+         endingLineNumber = "80"
          landmarkName = "-updateTableHeaders"
          landmarkType = "5">
       </FileBreakpoint>
@@ -177,11 +177,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TaskTimer/AppDelegate.m"
-         timestampString = "390690983.053594"
+         timestampString = "391156966.845315"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "779"
-         endingLineNumber = "779"
+         startingLineNumber = "818"
+         endingLineNumber = "818"
          landmarkName = "-radioButtonSelected:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -190,11 +190,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TaskTimer/AppDelegate.m"
-         timestampString = "390690983.053594"
+         timestampString = "391156966.845315"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "778"
-         endingLineNumber = "778"
+         startingLineNumber = "817"
+         endingLineNumber = "817"
          landmarkName = "-radioButtonSelected:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -372,11 +372,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TaskTimer/AppDelegate.m"
-         timestampString = "390207137.153542"
+         timestampString = "391156447.76845"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "199"
-         endingLineNumber = "199"
+         startingLineNumber = "204"
+         endingLineNumber = "204"
          landmarkName = "-applicationDidFinishLaunching:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -385,12 +385,51 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TaskTimer/AppDelegate.m"
-         timestampString = "390207137.153542"
+         timestampString = "391156447.76845"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "220"
-         endingLineNumber = "220"
+         startingLineNumber = "225"
+         endingLineNumber = "225"
          landmarkName = "-windowWillReturnUndoManager:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "TaskTimer/AppDelegate.m"
+         timestampString = "391156966.845315"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "446"
+         endingLineNumber = "446"
+         landmarkName = "-removeTimeItem:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "TaskTimer/AppDelegate.m"
+         timestampString = "391156966.845315"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "449"
+         endingLineNumber = "449"
+         landmarkName = "-removeTimeItem:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "TaskTimer/AppDelegate.m"
+         timestampString = "391156969.851795"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "384"
+         endingLineNumber = "384"
+         landmarkName = "-removeTaskItem:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

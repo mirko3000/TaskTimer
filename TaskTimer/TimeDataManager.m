@@ -134,7 +134,7 @@ NSMutableArray *weekDataSet;
     NSNumber *duration = [time valueForKey:@"duration"];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"MM.YYYY"];
+    [dateFormatter setDateFormat:@"MMMM YYYY"];
     NSString *dateStringKey = [dateFormatter stringFromDate:start];
     
     
